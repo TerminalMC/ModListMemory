@@ -1,0 +1,216 @@
+plugins {
+    id("fabric-loom") version("${loom_version}") apply(false)
+    id("net.neoforged.moddev") version("${moddev_version}") apply(false)
+    id("org.cadixdev.licenser") version("${licenser_version}") apply(false)
+    id("me.modmuss50.mod-publish-plugin") version("${mpp_version}")
+    id("org.ajoberstar.grgit.service") version("${grgitservice_version}")
+}
+
+subprojects {
+    version = mod_version
+    group = mod_group
+
+    // License headers
+    apply(plugin: "org.cadixdev.licenser")
+    String licenseDir = "src/main/resources/assets/${mod_id}/license/"
+    license {
+        include("**/*.java") // Java files only
+        header = rootProject.project("common").file(licenseDir + "HEADER.txt")
+        properties {
+            project_name = mod_name
+            owner_name = mod_owner
+            year = java.time.LocalDate.now().getYear().toString()
+        }
+        // Alternate license
+        matching(includes: [
+                "**/MixinMinecraft.java",
+                "**/MixinTitleScreen.java",
+        ]) {
+            header = rootProject.project("common").file(licenseDir + "other-mod/HEADER.txt")
+        }
+    }
+
+    if (name != "common") {
+        // Publishing
+        apply(plugin: "me.modmuss50.mod-publish-plugin")
+        apply(plugin: "org.ajoberstar.grgit.service")
+
+        afterEvaluate {
+            publishMods {
+                file = project.name == "fabric" ? remapJar.archiveFile : jar.archiveFile
+                version = mod_version
+                type = me.modmuss50.mpp.ReleaseType.of(release_type)
+                displayName = "v${mod_version}-${capsLoader(project.name)}"
+                modLoaders.addAll(project.property("release_mod_loaders_${project.name}").split(","))
+                maxRetries = 5
+                dryRun = providers.environmentVariable("GITHUB_TOKEN").getOrElse("").isBlank()
+                        && providers.environmentVariable("MODRINTH_TOKEN").getOrElse("").isBlank()
+                        && providers.environmentVariable("CURSEFORGE_TOKEN").getOrElse("").isBlank()
+                
+                github {
+                    accessToken = providers.environmentVariable("GITHUB_TOKEN").getOrElse("")
+                    repository = github_repo
+                    commitish = grgitService.service.get().grgit.branch.current().name
+                    tagName = "v${mod_version}-${project.name}"
+                    additionalFiles.from(sourcesJar.archiveFile)
+                    String versions = "## Minecraft Versions\n"
+                    project.property("release_game_versions_${project.name}").split(",").each {
+                        versions = "${versions}\n- ${it}"
+                    }
+                    changelog = versions + "\n\n## Changelog\n\n" + versionChangelog()
+                }
+                modrinth {
+                    accessToken = providers.environmentVariable("MODRINTH_TOKEN").getOrElse("")
+                    projectId = modrinth_id
+                    minecraftVersions.addAll(project.property("release_game_versions_${project.name}").split(","))
+                    changelog = versionChangelog()
+                    if (project.hasProperty("release_required_dep_ids_${project.name}_mr")) {
+                        project.property("release_required_dep_ids_${project.name}_mr").split(",").each { String mrId ->
+                            requires { id = mrId }
+                        }
+                    }
+                    if (project.hasProperty("release_optional_dep_ids_${project.name}_mr")) {
+                        project.property("release_optional_dep_ids_${project.name}_mr").split(",").each { String mrId ->
+                            optional { id = mrId }
+                        }
+                    }
+                    if (project.hasProperty("release_incompatible_dep_ids_${project.name}_mr")) {
+                        project.property("release_incompatible_dep_ids_${project.name}_mr").split(",").each { String mrId ->
+                            incompatible { id = mrId }
+                        }
+                    }
+                    if (project.hasProperty("release_embedded_dep_ids_${project.name}_mr")) {
+                        project.property("release_embedded_dep_ids_${project.name}_mr").split(",").each { String mrId ->
+                            embeds { id = mrId }
+                        }
+                    }
+                    // Sync Modrinth description with README
+                    projectDescription = rootProject.file("README.md").text
+                }
+                curseforge {
+                    accessToken = providers.environmentVariable("CURSEFORGE_TOKEN").getOrElse("")
+                    projectId = curseforge_id
+                    projectSlug = curseforge_slug
+                    minecraftVersions.addAll(project.property("release_game_versions_${project.name}").split(","))
+                    changelog = versionChangelog()
+                    if (project.hasProperty("release_required_dep_ids_${project.name}_cf")) {
+                        project.property("release_required_dep_ids_${project.name}_cf").split(",").each { String slug ->
+                            requires(slug)
+                        }
+                    }
+                    if (project.hasProperty("release_optional_dep_ids_${project.name}_cf")) {
+                        project.property("release_optional_dep_ids_${project.name}_cf").split(",").each { String slug ->
+                            optional(slug)
+                        }
+                    }
+                    if (project.hasProperty("release_incompatible_dep_ids_${project.name}_cf")) {
+                        project.property("release_incompatible_dep_ids_${project.name}_cf").split(",").each { String slug ->
+                            incompatible(slug)
+                        }
+                    }
+                    if (project.hasProperty("release_embedded_dep_ids_${project.name}_cf")) {
+                        project.property("release_embedded_dep_ids_${project.name}_cf").split(",").each { String slug ->
+                            embeds(slug)
+                        }
+                    }
+                }
+            }
+            tasks.named("publishGithub") {
+                it.onlyIf {
+                    return it["dryRun"].get() || !providers.environmentVariable("GITHUB_TOKEN").getOrElse("").isBlank()
+                }
+            }
+            tasks.named("publishModrinth") {
+                it.onlyIf {
+                    return it["dryRun"].get() || !providers.environmentVariable("MODRINTH_TOKEN").getOrElse("").isBlank()
+                }
+            }
+            tasks.named("publishCurseforge") {
+                it.onlyIf {
+                    return it["dryRun"].get() || !providers.environmentVariable("CURSEFORGE_TOKEN").getOrElse("").isBlank()
+                }
+            }
+        }
+    }
+}
+
+String versionChangelog() {
+    List<String> lines = rootProject.file("CHANGELOG.md").readLines()
+    StringBuilder builder = new StringBuilder()
+    if ("${mod_version}".startsWith(lines.get(2).substring(3))) {
+        for (int i = 4; i < lines.size(); i++) {
+            String line = lines.get(i)
+            if (line.startsWith("## ")) {
+                break
+            } else if (!line.isBlank()) {
+                if (!builder.isEmpty()) builder.append("\n")
+                builder.append(line)
+            }
+        }
+    } else {
+        throw new IllegalArgumentException(
+                String.format("Mod version '%s' does not start with changelog version '%s'", 
+                        mod_version, lines.get(2).substring(3)))
+    }
+    return builder.toString()
+}
+
+static String capsLoader(String loader) {
+    switch(loader) {
+        case "fabric": return "Fabric"
+        case "quilt": return "Quilt"
+        case "forge": return "Forge"
+        case "neoforge": return "NeoForge"
+        default: return loader
+    }
+}
+
+tasks.register("rebrandProject") {
+    def rebrandFile = file("rebrand.properties")
+    if (!rebrandFile.exists()) {
+        println("'rebrand.properties' file not found.")
+        return
+    }
+    doLast {
+        def properties = new Properties()
+        rebrandFile.withInputStream { stream ->
+            properties.load(stream)
+        }
+
+        file(".").eachFileRecurse { file ->
+            if (file.isFile() && !file.name.startsWith(".git") && !file.name.startsWith("gradlew")
+                    && (file.relativePath(project.rootDir) == ".." || file.path.contains("src\\main"))) {
+                try {
+                    properties.each { key, value ->
+                        if (file.name.contains(key.toString())) {
+                            def newName = file.name.replace(key.toString(), value.toString())
+                            def newFile = new File(file.parentFile, newName)
+                            if (file.renameTo(newFile)) {
+                                println("Renamed '${file.name}'")
+                            } else {
+                                println("Failed to rename '${file.name}'")
+                            }
+                        }
+                    }
+                } catch (IOException ex) {
+                    println("Error renaming file '${file.path}': ${ex}")
+                }
+            }
+        }
+
+        file(".").eachFileRecurse { file ->
+            if (file.isFile() && !file.name.startsWith(".git") && !file.name.startsWith("gradlew")
+                    && (file.relativePath(project.rootDir) == ".." || file.path.contains("src\\main"))) {
+                try {
+                    def content = file.text
+                    properties.each { key, value ->
+                        content = content.replaceAll(key.toString(), value.toString())
+                    }
+                    file.withWriter("UTF-8") { writer -> writer.write(content) }
+                } catch (IOException ex) {
+                    println("Error updating contents of file '${file.path}': ${ex}")
+                }
+            }
+        }
+    }
+}
