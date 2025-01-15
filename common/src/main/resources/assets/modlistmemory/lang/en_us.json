@@ -1,0 +1,20 @@
+{
+  "modlistmemory.name": "ModListMemory",
+
+  "message.modlistmemory.viewModrinth": "View on Modrinth",
+  "message.modlistmemory.installCloth": "Install Cloth Config API to access mod options",
+  
+  "option.modlistmemory.main": "Main",
+  "option.modlistmemory.main.mode": "Mode",
+  "option.modlistmemory.main.mode.DISABLED": "Disabled",
+  "option.modlistmemory.main.mode.tooltip.DISABLED": "No effects.",
+  "option.modlistmemory.main.mode.REMEMBER_RECENT": "Remember Recent Mods",
+  "option.modlistmemory.main.mode.tooltip.REMEMBER_RECENT": "When you open the mod list, mods that you opened recently will be shown at the top.",
+  "option.modlistmemory.main.mode.REMEMBER_SCROLL": "Remember Scroll Position",
+  "option.modlistmemory.main.mode.tooltip.REMEMBER_SCROLL": "When you open the mod list, the scroll value will be set to the most recent value.",
+  "option.modlistmemory.main.persistOnRestart": "Persist on restart",
+  "option.modlistmemory.main.persistOnRestart.tooltip": "Whether memory should persist across game restarts.",
+  "option.modlistmemory.main.memorySize": "Memory size",
+  "option.modlistmemory.main.memorySize.tooltip": "How many mods to show at the top when in Remember Recent mode.",
+  "option.modlistmemory.main.memorySize.value": "%s mods"
+}

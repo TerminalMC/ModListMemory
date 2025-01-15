@@ -47,9 +47,9 @@ issueTrackerURL="${issues_url}" #optional:none
   side="CLIENT"
 
 [[dependencies."${mod_id}"]]
-  modId="yet_another_config_lib_v3"
+  modId="better_modlist"
   type="optional"
-  versionRange="${yacl_versions_neoforge}"
+  versionRange="${bettermodlist_versions_neoforge}"
   side="CLIENT"
 
 # https://docs.neoforged.net/docs/gettingstarted/modfiles/#modstoml

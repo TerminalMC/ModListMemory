@@ -21,13 +21,6 @@ subprojects {
             owner_name = mod_owner
             year = java.time.LocalDate.now().getYear().toString()
         }
-        // Alternate license
-        matching(includes: [
-                "**/MixinMinecraft.java",
-                "**/MixinTitleScreen.java",
-        ]) {
-            header = rootProject.project("common").file(licenseDir + "other-mod/HEADER.txt")
-        }
     }
 
     if (name != "common") {
@@ -162,55 +155,5 @@ static String capsLoader(String loader) {
         case "forge": return "Forge"
         case "neoforge": return "NeoForge"
         default: return loader
-    }
-}
-
-tasks.register("rebrandProject") {
-    def rebrandFile = file("rebrand.properties")
-    if (!rebrandFile.exists()) {
-        println("'rebrand.properties' file not found.")
-        return
-    }
-    doLast {
-        def properties = new Properties()
-        rebrandFile.withInputStream { stream ->
-            properties.load(stream)
-        }
-
-        file(".").eachFileRecurse { file ->
-            if (file.isFile() && !file.name.startsWith(".git") && !file.name.startsWith("gradlew")
-                    && (file.relativePath(project.rootDir) == ".." || file.path.contains("src\\main"))) {
-                try {
-                    properties.each { key, value ->
-                        if (file.name.contains(key.toString())) {
-                            def newName = file.name.replace(key.toString(), value.toString())
-                            def newFile = new File(file.parentFile, newName)
-                            if (file.renameTo(newFile)) {
-                                println("Renamed '${file.name}'")
-                            } else {
-                                println("Failed to rename '${file.name}'")
-                            }
-                        }
-                    }
-                } catch (IOException ex) {
-                    println("Error renaming file '${file.path}': ${ex}")
-                }
-            }
-        }
-
-        file(".").eachFileRecurse { file ->
-            if (file.isFile() && !file.name.startsWith(".git") && !file.name.startsWith("gradlew")
-                    && (file.relativePath(project.rootDir) == ".." || file.path.contains("src\\main"))) {
-                try {
-                    def content = file.text
-                    properties.each { key, value ->
-                        content = content.replaceAll(key.toString(), value.toString())
-                    }
-                    file.withWriter("UTF-8") { writer -> writer.write(content) }
-                } catch (IOException ex) {
-                    println("Error updating contents of file '${file.path}': ${ex}")
-                }
-            }
-        }
     }
 }

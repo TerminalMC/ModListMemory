@@ -128,9 +128,8 @@ processResources {
             // Dependencies
             "clothconfig_versions_fabric_list": asJsonList(clothconfig_versions_fabric),
             "clothconfig_versions_neoforge": clothconfig_versions_neoforge,
-            "yacl_versions_fabric_list": asJsonList(yacl_versions_fabric),
-            "yacl_versions_neoforge": yacl_versions_neoforge,
             "modmenu_versions_fabric_list": asJsonList(modmenu_versions_fabric),
+            "bettermodlist_versions_neoforge": bettermodlist_versions_neoforge,
     ]
     filesMatching(["pack.mcmeta", "*.mod.json", "META-INF/*mods.toml", "*.mixins.json"]) {
         expand expandProps
