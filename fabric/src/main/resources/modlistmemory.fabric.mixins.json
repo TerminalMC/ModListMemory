@@ -5,10 +5,11 @@
   "refmap": "${mod_id}.refmap.json",
   "compatibilityLevel": "JAVA_${java_version}",
   "mixins": [
-    "MixinModListEntry",
-    "MixinModListWidget"
   ],
   "client": [
+    "MixinModListEntry",
+    "MixinModListWidget",
+    "MixinModListWidgetAlt",
     "MixinModsScreen"
   ],
   "server": [

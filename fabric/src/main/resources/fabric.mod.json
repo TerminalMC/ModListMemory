@@ -31,11 +31,11 @@
     "java": [$java_versions_fabric_list],
     "minecraft": [$minecraft_versions_fabric_list],
     "fabricloader": [$fabric_loader_versions_list],
-    "fabric-api": [$fabric_api_versions_list]
+    "fabric-api": [$fabric_api_versions_list],
+    "modmenu": [$modmenu_versions_fabric_list]
   },
 
   "recommends": {
-    "modmenu": [$modmenu_versions_fabric_list],
     "cloth-config": [$clothconfig_versions_fabric_list]
   },
 

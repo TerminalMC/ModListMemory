@@ -22,11 +22,7 @@ import com.terraformersmc.modmenu.gui.widget.ModListWidget;
 import com.terraformersmc.modmenu.util.mod.Mod;
 import dev.terminalmc.modlistmemory.ModListMemory;
 import dev.terminalmc.modlistmemory.config.Config;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.components.AbstractSelectionList;
-import net.minecraft.client.gui.narration.NarrationElementOutput;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.injection.At;
 
 import java.util.ArrayList;
@@ -35,16 +31,8 @@ import java.util.List;
 
 import static dev.terminalmc.modlistmemory.config.Config.options;
 
-@Pseudo
 @Mixin(value = ModListWidget.class, remap = false)
-public class MixinModListWidget extends AbstractSelectionList {
-    public MixinModListWidget(Minecraft minecraft, int width, int height, int y, int itemHeight) {
-        super(minecraft, width, height, y, itemHeight);
-    }
-
-    @Override
-    protected void updateWidgetNarration(NarrationElementOutput narrationElementOutput) {}
-
+public class MixinModListWidget {
     @WrapOperation(
             method = "filter(Ljava/lang/String;ZZ)V",
             at = @At(
@@ -72,11 +60,5 @@ public class MixinModListWidget extends AbstractSelectionList {
                 }
             }
         }
-    }
-    
-    @Override
-    public void setScrollAmount(double scroll) {
-        ModListMemory.scrollAmount = scroll;
-        super.setScrollAmount(scroll);
     }
 }

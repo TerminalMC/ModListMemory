@@ -9,6 +9,7 @@
   "client": [
     "MixinModListEntry",
     "MixinModListWidget",
+    "MixinModListWidgetAlt",
     "MixinModsScreen"
   ],
   "server": [
