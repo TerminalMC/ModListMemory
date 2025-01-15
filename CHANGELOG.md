@@ -1,10 +1,5 @@
 # Changelog
 
-## 1.0.4
+## 0.1.0
 
-- Added something
-- Fixed something else
-
-## 1.0.0-beta.1
-
-- Initial beta release
+- Initial working version
