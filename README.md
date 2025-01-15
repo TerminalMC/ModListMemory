@@ -38,4 +38,3 @@ Works with [ModMenu](https://modrinth.com/mod/mOgUt4GM) on Fabric and
 [![Issues](https://img.shields.io/github/issues/TerminalMC/ModListMemory?logo=github&label=GitHub%20Issues)](https://github.com/TerminalMC/ModListMemory/issues)
 
 [![License](https://img.shields.io/github/license/TerminalMC/ModListMemory?label=License&logo=github&logoColor=white)](https://github.com/TerminalMC/ModListMemory/blob/HEAD/LICENSE.txt)
-
