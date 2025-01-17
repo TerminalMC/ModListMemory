@@ -53,6 +53,7 @@ public class ModListMemory {
     }
 
     public static void onModOpened(String modId) {
+        recentMods.remove(modId);
         recentMods.addLast(modId);
         while (recentMods.size() > options().memorySize) {
             recentMods.removeFirst();
