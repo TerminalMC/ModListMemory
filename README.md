@@ -6,7 +6,7 @@
 
 Moves recently-opened mods to the top of the mod list, or remembers your scroll position.
 
-Works with [ModMenu](https://modrinth.com/mod/mOgUt4GM) on Fabric and 
+Works with [ModMenu](https://modrinth.com/mod/mOgUt4GM) on Fabric and
 [Better Modlist](https://modrinth.com/mod/sbpqhzIG) on NeoForge
 
 [![Environment](https://img.shields.io/badge/Environment-Client-blue?logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAABhWlDQ1BJQ0MgcHJvZmlsZQAAKJF9kT1Iw0AYht+malUqDnYQEclQneyiIo6likWwUNoKrTqYXPoHTRqSFBdHwbXg4M9i1cHFWVcHV0EQ/AFxdnBSdJESv0sKLWI8uLuH97735e47QGhUmGp2RQFVs4xUPCZmc6ti4BU9CKCP1jGJmXoivZiB5/i6h4/vdxGe5V335xhQ8iYDfCJxlOmGRbxBPLtp6Zz3iUOsJCnE58STBl2Q+JHrsstvnIsOCzwzZGRS88QhYrHYwXIHs5KhEs8QhxVVo3wh67LCeYuzWqmx1j35C4N5bSXNdZqjiGMJCSQhQkYNZVRgIUK7RoqJFJ3HPPwjjj9JLplcZTByLKAKFZLjB/+D3701C9NTblIwBnS/2PbHOBDYBZp12/4+tu3mCeB/Bq60tr/aAOY+Sa+3tfARMLgNXFy3NXkPuNwBhp90yZAcyU9TKBSA9zP6phwwdAv0r7l9a53j9AHIUK+Wb4CDQ2CiSNnrHu/u7ezbvzWt/v0ATphymIBZ6aQAAAAGYktHRAAKAAwAGd6C8noAAAAJcEhZcwAADdcAAA3XAUIom3gAAAAHdElNRQfoBgcOHRYlcgoRAAABRklEQVR42u2YMUoDQRRAX0axUzCteIZ4hKn0FDmFhalSWKkgnkHt9AQWwhzBNr2tBGNno82ACwm6EZvxvwdTzP8s7P8zu8w8EJHIDABKKfvAFXAIbP/zmt+AR2CSc54NavFPwDDY4s+BUaorPwy4+3eBy1S3fVSOUoBv/jt2UmMv/A6cAHt1TGqsb36JzcYaMM05X3Tm56UUgLOe+SVa2wE3K2LXa+Sbb8BgRWxjjXzzDRj/EBv3fOarY6WUj8Z+glPgtlPcKbDVM998A/6cVM/GUXlN9WIQlYdUDwvzgMW/AMcp5zwDRsA9sAhQ+AK4Aw5yzs8aEZHY6AR1gjpBnaBOsLHrsE6wM9cJohPUCeoE0Qn+Hp0gOkGdoE5QRMKiE9QJ6gR1gjrBxq7DOsHOXCeITlAnqBNEJ/h7dILoBHWCOkERCcsncuextWq5TzoAAAAASUVORK5CYII=)]()
@@ -22,8 +22,15 @@ Works with [ModMenu](https://modrinth.com/mod/mOgUt4GM) on Fabric and
 
 ### Options
 
-- `Remember Recent Mods` records when you open mods from the list, and moves those mods to the top of the list.
-- `Remember Scroll Position` saves the scrollbar position and restores it when you reopen the mod list.
+- `Remember Recent` records when you open mods from the list, and moves those mods to the top of the list.
+- `Remember Scroll` saves the scrollbar position and restores it when you reopen the mod list.
+
+
+- `Persist on restart` makes the mod save its memory to the config file, allowing it to be restored when you restart
+  the game.
+- `Save on update` makes the mod save its memory whenever you open a mod from the list, rather than only when you quit
+  the game. This takes a small amount of time (~1ms with a memory size of 5) and allows
+  `Persist on restart` to work even if the game crashes or otherwise fails to shut down properly.
 
 ### Dependencies
 
