@@ -16,7 +16,7 @@
 
 package dev.terminalmc.modlistmemory.mixin;
 
-import com.terraformersmc.mod_menu.gui.widget.ModListWidget;
+import com.terraformersmc.modmenu.gui.widget.ModListWidget;
 import dev.terminalmc.modlistmemory.ModListMemory;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
