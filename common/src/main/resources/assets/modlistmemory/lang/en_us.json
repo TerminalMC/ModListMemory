@@ -8,13 +8,15 @@
   "option.modlistmemory.main.mode": "Mode",
   "option.modlistmemory.main.mode.DISABLED": "Disabled",
   "option.modlistmemory.main.mode.tooltip.DISABLED": "No effects.",
-  "option.modlistmemory.main.mode.REMEMBER_RECENT": "Remember Recent Mods",
+  "option.modlistmemory.main.mode.REMEMBER_RECENT": "Remember Recent",
   "option.modlistmemory.main.mode.tooltip.REMEMBER_RECENT": "When you open the mod list, mods that you opened recently will be shown at the top.",
-  "option.modlistmemory.main.mode.REMEMBER_SCROLL": "Remember Scroll Position",
+  "option.modlistmemory.main.mode.REMEMBER_SCROLL": "Remember Scroll",
   "option.modlistmemory.main.mode.tooltip.REMEMBER_SCROLL": "When you open the mod list, the scroll value will be set to the most recent value.",
-  "option.modlistmemory.main.persistOnRestart": "Persist on restart",
-  "option.modlistmemory.main.persistOnRestart.tooltip": "Whether memory should persist across game restarts.",
   "option.modlistmemory.main.memorySize": "Memory size",
   "option.modlistmemory.main.memorySize.tooltip": "How many mods to show at the top when in Remember Recent mode.",
-  "option.modlistmemory.main.memorySize.value": "%s mods"
+  "option.modlistmemory.main.memorySize.value": "%s mods",
+  "option.modlistmemory.main.persistOnRestart": "Persist on restart",
+  "option.modlistmemory.main.persistOnRestart.tooltip": "Whether memory should persist across game restarts.",
+  "option.modlistmemory.main.saveOnUpdate": "Save on update",
+  "option.modlistmemory.main.saveOnUpdate.tooltip": "Whether, when persisting across restarts, the recently-opened mod list should be saved to file whenever it is updated, instead of only when you quit the game."
 }

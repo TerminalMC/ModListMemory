@@ -57,21 +57,29 @@ public class ClothScreenProvider {
                 .setEnumNameProvider(val -> localized("option", "main.mode." + val.name()))
                 .build());
 
-        // Yes/No button
-        main.addEntry(eb.startBooleanToggle(
-                localized("option", "main.persistOnRestart"), options.persistOnRestart)
-                .setTooltip(localized("option", "main.persistOnRestart.tooltip"))
-                .setDefaultValue(Config.Options.persistOnRestartDefault)
-                .setSaveConsumer(val -> options.persistOnRestart = val)
-                .build());
-
-        // Integer slider with value text formatting (also available for Long)
+        // Integer slider with value text formatting
         main.addEntry(eb.startIntSlider(
                 localized("option", "main.memorySize"), options.memorySize, 0, 200)
                 .setTooltip(localized("option", "main.memorySize.tooltip"))
                 .setDefaultValue(Config.Options.memorySizeDefault)
                 .setSaveConsumer(val -> options.memorySize = val)
                 .setTextGetter(val -> localized("option", "main.memorySize.value", val)) // op
+                .build());
+
+        // Yes/No button
+        main.addEntry(eb.startBooleanToggle(
+                        localized("option", "main.persistOnRestart"), options.persistOnRestart)
+                .setTooltip(localized("option", "main.persistOnRestart.tooltip"))
+                .setDefaultValue(Config.Options.persistOnRestartDefault)
+                .setSaveConsumer(val -> options.persistOnRestart = val)
+                .build());
+
+        // Yes/No button
+        main.addEntry(eb.startBooleanToggle(
+                        localized("option", "main.saveOnUpdate"), options.saveOnUpdate)
+                .setTooltip(localized("option", "main.saveOnUpdate.tooltip"))
+                .setDefaultValue(Config.Options.saveOnUpdateDefault)
+                .setSaveConsumer(val -> options.saveOnUpdate = val)
                 .build());
 
         return builder.build();

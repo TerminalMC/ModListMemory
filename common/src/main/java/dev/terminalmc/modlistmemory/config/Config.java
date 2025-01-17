@@ -47,12 +47,15 @@ public class Config {
     public static class Options {
         public static final Mode modeDefault = Mode.REMEMBER_RECENT;
         public Mode mode = modeDefault;
+
+        public static final int memorySizeDefault = 5;
+        public int memorySize = memorySizeDefault;
         
         public static final boolean persistOnRestartDefault = false;
         public boolean persistOnRestart = persistOnRestartDefault;
 
-        public static final int memorySizeDefault = 5;
-        public int memorySize = memorySizeDefault;
+        public static final boolean saveOnUpdateDefault = true;
+        public boolean saveOnUpdate = saveOnUpdateDefault;
         
         // Not user-editable
         public List<String> recentMods = new ArrayList<>();

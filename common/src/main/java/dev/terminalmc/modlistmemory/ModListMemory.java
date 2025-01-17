@@ -43,9 +43,11 @@ public class ModListMemory {
     }
 
     public static void onClientShutdown(Minecraft mc) {
-        options().recentMods = recentMods;
-        options().scrollAmount = scrollAmount;
-        Config.save();
+        if (options().persistOnRestart) {
+            options().recentMods = recentMods;
+            options().scrollAmount = scrollAmount;
+            Config.save();
+        }
     }
     
     public static void onConfigSaved(Config config) {
@@ -57,6 +59,8 @@ public class ModListMemory {
         while (recentMods.size() > options().memorySize) {
             recentMods.removeFirst();
         }
-        Config.save();
+        if (options().persistOnRestart && options().saveOnUpdate) {
+            Config.save();
+        }
     }
 }
