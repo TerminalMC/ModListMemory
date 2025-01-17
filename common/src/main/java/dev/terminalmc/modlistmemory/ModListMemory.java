@@ -57,5 +57,6 @@ public class ModListMemory {
         while (recentMods.size() > options().memorySize) {
             recentMods.removeFirst();
         }
+        Config.save();
     }
 }
