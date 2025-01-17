@@ -51,7 +51,7 @@ public class Config {
         public static final int memorySizeDefault = 5;
         public int memorySize = memorySizeDefault;
         
-        public static final boolean persistOnRestartDefault = false;
+        public static final boolean persistOnRestartDefault = true;
         public boolean persistOnRestart = persistOnRestartDefault;
 
         public static final boolean saveOnUpdateDefault = true;
