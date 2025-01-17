@@ -42,6 +42,7 @@ public class MixinModListWidget {
     )
     private void wrapSort(List<Mod> modList, Comparator<? super Mod> comparator, Operation<Void> original) {
         original.call(modList, comparator);
+        // Add recent mods to the top of the list
         if (options().mode.equals(Config.Mode.REMEMBER_RECENT)) {
             List<Mod> copy = new ArrayList<>(modList);
             modList.clear();
