@@ -16,8 +16,8 @@
 
 package dev.terminalmc.modlistmemory.mixin;
 
-import com.terraformersmc.mod_menu.gui.ModsScreen;
-import com.terraformersmc.mod_menu.gui.widget.ModListWidget;
+import com.terraformersmc.modmenu.gui.ModsScreen;
+import com.terraformersmc.modmenu.gui.widget.ModListWidget;
 import dev.terminalmc.modlistmemory.config.Config;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;

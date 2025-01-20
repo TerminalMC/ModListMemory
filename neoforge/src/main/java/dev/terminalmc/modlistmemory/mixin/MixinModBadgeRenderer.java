@@ -16,8 +16,8 @@
 
 package dev.terminalmc.modlistmemory.mixin;
 
-import com.terraformersmc.mod_menu.util.mod.Mod;
-import com.terraformersmc.mod_menu.util.mod.ModBadgeRenderer;
+import com.terraformersmc.modmenu.util.mod.Mod;
+import com.terraformersmc.modmenu.util.mod.ModBadgeRenderer;
 import dev.terminalmc.modlistmemory.ModListMemory;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.util.FormattedCharSequence;
@@ -32,7 +32,7 @@ import static dev.terminalmc.modlistmemory.config.Config.options;
 @Mixin(ModBadgeRenderer.class)
 public abstract class MixinModBadgeRenderer {
     @Shadow
-    public abstract void drawBadge(GuiGraphics graphics, FormattedCharSequence text, int outlineColor, int fillColor, int mouseX, int mouseY);
+    public abstract void drawBadge(GuiGraphics graphics, FormattedCharSequence text, int outlineColor, int fillColor, int textColor);
 
     @Shadow
     protected Mod mod;
@@ -41,19 +41,19 @@ public abstract class MixinModBadgeRenderer {
             method = "draw",
             at = @At("TAIL")
     )
-    private void afterDraw(GuiGraphics graphics, int mouseX, int mouseY, CallbackInfo ci) {
+    private void afterDraw(GuiGraphics graphics, CallbackInfo ci) {
         if (options().showBadges) {
             if (ModListMemory.pinnedBadgeText != null
                     && options().pinnedMods.contains(mod.getId())) {
                 drawBadge(graphics, ModListMemory.pinnedBadgeText,
                         ModListMemory.PINNED_BADGE_OUTLINE, ModListMemory.PINNED_BADGE_FILL,
-                        mouseX, mouseY);
+                        ModListMemory.BADGE_TEXT);
             }
             else if (ModListMemory.recentBadgeText != null
                     && options().recentMods.contains(mod.getId())) {
                 drawBadge(graphics, ModListMemory.recentBadgeText,
                         ModListMemory.RECENT_BADGE_OUTLINE, ModListMemory.RECENT_BADGE_FILL,
-                        mouseX, mouseY);
+                        ModListMemory.BADGE_TEXT);
             }
         }
     }
