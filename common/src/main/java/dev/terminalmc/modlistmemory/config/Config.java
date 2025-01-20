@@ -48,24 +48,56 @@ public class Config {
         public static final Mode modeDefault = Mode.REMEMBER_RECENT;
         public Mode mode = modeDefault;
 
-        public static final int memorySizeDefault = 5;
-        public int memorySize = memorySizeDefault;
+        public static final int pinnedModsSizeDefault = 5;
+        public int pinnedModsSize = pinnedModsSizeDefault;
+
+        public static final int recentModsSizeDefault = 5;
+        public int recentModsSize = recentModsSizeDefault;
+
+        public static final Key pinKeyDefault = Key.SHIFT;
+        public Key pinKey = pinKeyDefault;
+
+        public static final Key unpinKeyDefault = Key.CONTROL;
+        public Key unpinKey = unpinKeyDefault;
+
+        public static final boolean showBadgesDefault = true;
+        public boolean showBadges = showBadgesDefault;
+
+        public static final String pinnedTextDefault = "I";
+        public String pinnedText = pinnedTextDefault;
         
+        public static final String recentTextDefault = "R";
+        public String recentText = recentTextDefault;
+
         public static final boolean persistOnRestartDefault = true;
         public boolean persistOnRestart = persistOnRestartDefault;
 
         public static final boolean saveOnUpdateDefault = true;
         public boolean saveOnUpdate = saveOnUpdateDefault;
-        
+
         // Not user-editable
-        public List<String> recentMods = new ArrayList<>();
-        public double scrollAmount = Double.MIN_VALUE;
+
+        public static final List<String> pinnedModsDefault = new ArrayList<>();
+        public List<String> pinnedMods = pinnedModsDefault;
+
+        public static final List<String> recentModsDefault = new ArrayList<>();
+        public List<String> recentMods = recentModsDefault;
+        
+        public static final double scrollAmountDefault = Double.MIN_VALUE;
+        public double scrollAmount = scrollAmountDefault;
     }
 
     public enum Mode {
         DISABLED,
         REMEMBER_RECENT,
         REMEMBER_SCROLL,
+    }
+
+    public enum Key {
+        CONTROL,
+        ALT,
+        SHIFT,
+        NONE,
     }
 
     // Instance management

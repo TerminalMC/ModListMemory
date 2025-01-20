@@ -20,17 +20,34 @@ Works with [ModMenu](https://modrinth.com/mod/mOgUt4GM) on Fabric and
 
 </center></div>
 
-### Options
+### Features
+
+<details open>
+<summary><b>Memory</b></summary>
 
 - `Remember Recent` records when you open mods from the list, and moves those mods to the top of the list.
 - `Remember Scroll` saves the scrollbar position and restores it when you reopen the mod list.
+</details>
 
+
+<details open>
+<summary><b>Pinning</b></summary>
+
+- Hold a modifier key (default: `Shift`) while clicking on a mod from the list to pin that mod to the top of the list.
+- Re-order pins by holding the same modifier key while clicking on a pinned mod.
+- Unpin mods by holding the other modifier key (default: `Control`) while clicking on a pinned mod.
+</details>
+
+
+<details open>
+<summary><b>Memory</b></summary>
 
 - `Persist on restart` makes the mod save its memory to the config file, allowing it to be restored when you restart
   the game.
 - `Save on update` makes the mod save its memory whenever you open a mod from the list, rather than only when you quit
   the game. This takes a small amount of time (~1ms with a memory size of 5) and allows
   `Persist on restart` to work even if the game crashes or otherwise fails to shut down properly.
+</details>
 
 ### Dependencies
 

@@ -25,6 +25,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(value = ModListEntry.class, remap = false)
 public class MixinModListEntry {
@@ -38,5 +39,13 @@ public class MixinModListEntry {
     )
     private void onOpenConfig(CallbackInfo ci) {
         ModListMemory.onModOpened(mod.getId());
+    }
+
+    @Inject(
+            method = "mouseClicked",
+            at = @At("HEAD")
+    )
+    private void onMouseClicked(double mouseX, double mouseY, int delta, CallbackInfoReturnable<Boolean> cir) {
+        ModListMemory.onModClicked(mod.getId());
     }
 }

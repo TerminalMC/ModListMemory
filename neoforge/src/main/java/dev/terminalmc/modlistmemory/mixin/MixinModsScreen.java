@@ -18,7 +18,6 @@ package dev.terminalmc.modlistmemory.mixin;
 
 import com.terraformersmc.mod_menu.gui.ModsScreen;
 import com.terraformersmc.mod_menu.gui.widget.ModListWidget;
-import dev.terminalmc.modlistmemory.ModListMemory;
 import dev.terminalmc.modlistmemory.config.Config;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -39,8 +38,8 @@ public class MixinModsScreen {
     )
     private void afterInit(CallbackInfo ci) {
         if (options().mode.equals(Config.Mode.REMEMBER_SCROLL)) {
-            if (ModListMemory.scrollAmount != Double.MIN_VALUE) {
-                modList.setScrollAmount(ModListMemory.scrollAmount);
+            if (options().scrollAmount != Double.MIN_VALUE) {
+                modList.setScrollAmount(options().scrollAmount);
             }
         }
     }

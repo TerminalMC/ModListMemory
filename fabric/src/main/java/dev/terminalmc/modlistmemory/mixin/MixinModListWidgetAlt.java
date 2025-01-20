@@ -17,11 +17,12 @@
 package dev.terminalmc.modlistmemory.mixin;
 
 import com.terraformersmc.modmenu.gui.widget.ModListWidget;
-import dev.terminalmc.modlistmemory.ModListMemory;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import static dev.terminalmc.modlistmemory.config.Config.options;
 
 @Mixin(ModListWidget.class)
 public class MixinModListWidgetAlt {
@@ -30,6 +31,6 @@ public class MixinModListWidgetAlt {
             at = @At("HEAD")
     )
     private void onSetScrollAmount(double amount, CallbackInfo ci) {
-        ModListMemory.scrollAmount = amount;
+        options().scrollAmount = amount;
     }
 }

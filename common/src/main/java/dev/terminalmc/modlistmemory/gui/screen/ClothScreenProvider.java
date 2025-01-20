@@ -46,8 +46,7 @@ public class ClothScreenProvider {
         ConfigCategory main = builder.getOrCreateCategory(localized("option", "main"));
 
         // Enum cycling button
-        main.addEntry(eb.startEnumSelector(
-                        localized("option", "main.mode"),
+        main.addEntry(eb.startEnumSelector(localized("option", "main.mode"),
                         Config.Mode.class, options.mode)
                 .setTooltipSupplier((val) -> Optional.of(new Component[]{
                         localized("option", "main.mode.tooltip." + val.name())
@@ -58,25 +57,74 @@ public class ClothScreenProvider {
                 .build());
 
         // Integer slider with value text formatting
-        main.addEntry(eb.startIntSlider(
-                localized("option", "main.memorySize"), options.memorySize, 0, 200)
-                .setTooltip(localized("option", "main.memorySize.tooltip"))
-                .setDefaultValue(Config.Options.memorySizeDefault)
-                .setSaveConsumer(val -> options.memorySize = val)
-                .setTextGetter(val -> localized("option", "main.memorySize.value", val)) // op
+        main.addEntry(eb.startIntSlider(localized("option", "main.pinnedModsSize"),
+                        options.pinnedModsSize, 0, 200)
+                .setTooltip(localized("option", "main.pinnedModsSize.tooltip"))
+                .setDefaultValue(Config.Options.pinnedModsSizeDefault)
+                .setSaveConsumer(val -> options.pinnedModsSize = val)
+                .setTextGetter(val -> localized("option", "main.pinnedModsSize.value", val)) // op
+                .build());
+
+        // Integer slider with value text formatting
+        main.addEntry(eb.startIntSlider(localized("option", "main.recentModsSize"),
+                        options.recentModsSize, 0, 200)
+                .setTooltip(localized("option", "main.recentModsSize.tooltip"))
+                .setDefaultValue(Config.Options.recentModsSizeDefault)
+                .setSaveConsumer(val -> options.recentModsSize = val)
+                .setTextGetter(val -> localized("option", "main.recentModsSize.value", val)) // op
+                .build());
+
+        // Enum cycling button
+        main.addEntry(eb.startEnumSelector(localized("option", "main.pinKey"),
+                        Config.Key.class, options.pinKey)
+                .setTooltip(localized("option", "main.pinKey.tooltip"))
+                .setDefaultValue(Config.Options.pinKeyDefault)
+                .setSaveConsumer(val -> options.pinKey = val)
+                .setEnumNameProvider(val -> localized("option", "main.key." + val.name()))
+                .build());
+
+        // Enum cycling button
+        main.addEntry(eb.startEnumSelector(localized("option", "main.unpinKey"),
+                        Config.Key.class, options.unpinKey)
+                .setTooltip(localized("option", "main.unpinKey.tooltip"))
+                .setDefaultValue(Config.Options.unpinKeyDefault)
+                .setSaveConsumer(val -> options.unpinKey = val)
+                .setEnumNameProvider(val -> localized("option", "main.key." + val.name()))
                 .build());
 
         // Yes/No button
-        main.addEntry(eb.startBooleanToggle(
-                        localized("option", "main.persistOnRestart"), options.persistOnRestart)
+        main.addEntry(eb.startBooleanToggle(localized("option", "main.showBadges"),
+                        options.showBadges)
+                .setTooltip(localized("option", "main.showBadges.tooltip"))
+                .setDefaultValue(Config.Options.showBadgesDefault)
+                .setSaveConsumer(val -> options.showBadges = val)
+                .build());
+
+        // String field (lenient)
+        main.addEntry(eb.startStrField(localized("option", "main.pinnedText"),
+                        options.pinnedText)
+                .setDefaultValue(Config.Options.pinnedTextDefault)
+                .setSaveConsumer(val -> options.pinnedText = val)
+                .build());
+
+        // String field (lenient)
+        main.addEntry(eb.startStrField(localized("option", "main.recentText"),
+                        options.recentText)
+                .setDefaultValue(Config.Options.recentTextDefault)
+                .setSaveConsumer(val -> options.recentText = val)
+                .build());
+
+        // Yes/No button
+        main.addEntry(eb.startBooleanToggle(localized("option", "main.persistOnRestart"),
+                        options.persistOnRestart)
                 .setTooltip(localized("option", "main.persistOnRestart.tooltip"))
                 .setDefaultValue(Config.Options.persistOnRestartDefault)
                 .setSaveConsumer(val -> options.persistOnRestart = val)
                 .build());
 
         // Yes/No button
-        main.addEntry(eb.startBooleanToggle(
-                        localized("option", "main.saveOnUpdate"), options.saveOnUpdate)
+        main.addEntry(eb.startBooleanToggle(localized("option", "main.saveOnUpdate"),
+                        options.saveOnUpdate)
                 .setTooltip(localized("option", "main.saveOnUpdate.tooltip"))
                 .setDefaultValue(Config.Options.saveOnUpdateDefault)
                 .setSaveConsumer(val -> options.saveOnUpdate = val)

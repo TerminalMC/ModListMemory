@@ -20,7 +20,6 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.terraformersmc.mod_menu.gui.widget.ModListWidget;
 import com.terraformersmc.mod_menu.util.mod.Mod;
-import dev.terminalmc.modlistmemory.ModListMemory;
 import dev.terminalmc.modlistmemory.config.Config;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -46,16 +45,32 @@ public class MixinModListWidget {
         if (options().mode.equals(Config.Mode.REMEMBER_RECENT)) {
             List<Mod> copy = new ArrayList<>(modList);
             modList.clear();
-            Mod[] recentMods = new Mod[ModListMemory.recentMods.size()];
+            Mod[] recentMods = new Mod[options().recentMods.size()];
+            Mod[] pinnedMods = new Mod[options().pinnedMods.size()];
             for (Mod mod : copy) {
-                int i = ModListMemory.recentMods.indexOf(mod.getId());
+                int i = options().pinnedMods.indexOf(mod.getId());
+                // If id is in pinned list, add to pinned mods array
+                if (i != -1) {
+                    pinnedMods[i] = mod;
+                    continue;
+                }
+                // Else if id is in recent list, add to recent mods array
+                i = options().recentMods.indexOf(mod.getId());
                 if (i != -1) {
                     recentMods[i] = mod;
-                } else {
-                    modList.add(mod);
+                    continue;
+                }
+                // Else, add to mod list
+                modList.add(mod);
+            }
+            // Add recent mods (reverse order, on top of mod list)
+            for (Mod mod : recentMods) {
+                if (mod != null) {
+                    modList.addFirst(mod);
                 }
             }
-            for (Mod mod : recentMods) {
+            // Add pinned mods (reverse order, on top of recent mods)
+            for (Mod mod : pinnedMods) {
                 if (mod != null) {
                     modList.addFirst(mod);
                 }
