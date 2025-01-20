@@ -70,7 +70,7 @@ public class ModListMemory {
         }
     }
     
-    public static void onModClicked(String modId) {
+    public static boolean onModClicked(String modId) {
         if (ModListMemory.hasKeyDown(options().pinKey)) {
             // Pin, or move to the top of the pin list
             options().recentMods.remove(modId);
@@ -82,14 +82,18 @@ public class ModListMemory {
             if (options().persistOnRestart && options().saveOnUpdate) {
                 Config.save();
             }
+            return true;
         } 
-        else if (ModListMemory.hasKeyDown(options().unpinKey)) {
+        else if (ModListMemory.hasKeyDown(options().unpinKey) 
+                && options().pinnedMods.contains(modId)) {
             // Unpin
             options().pinnedMods.remove(modId);
             if (options().persistOnRestart && options().saveOnUpdate) {
                 Config.save();
             }
+            return true;
         }
+        return false;
     }
     
     public static boolean hasKeyDown(Config.Key key) {

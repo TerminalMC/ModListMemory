@@ -16,6 +16,7 @@
 
 package dev.terminalmc.modlistmemory.mixin;
 
+import com.terraformersmc.modmenu.gui.widget.ModListWidget;
 import com.terraformersmc.modmenu.gui.widget.entries.ModListEntry;
 import com.terraformersmc.modmenu.util.mod.Mod;
 import dev.terminalmc.modlistmemory.ModListMemory;
@@ -31,12 +32,18 @@ public class MixinModListEntryRemap {
     @Shadow
     @Final
     public Mod mod;
-    
+
+    @Shadow
+    @Final
+    protected ModListWidget list;
+
     @Inject(
             method = "mouseClicked",
             at = @At("HEAD")
     )
     private void onMouseClicked(double mouseX, double mouseY, int delta, CallbackInfoReturnable<Boolean> cir) {
-        ModListMemory.onModClicked(mod.getId());
+        if (ModListMemory.onModClicked(mod.getId())) {
+            list.reloadFilters();
+        }
     }
 }
