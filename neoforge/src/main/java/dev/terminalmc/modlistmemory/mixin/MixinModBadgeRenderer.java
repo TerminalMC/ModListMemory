@@ -16,8 +16,8 @@
 
 package dev.terminalmc.modlistmemory.mixin;
 
-import com.terraformersmc.mod_menu.util.mod.Mod;
-import com.terraformersmc.mod_menu.util.mod.ModBadgeRenderer;
+import com.terraformersmc.modmenu.util.mod.Mod;
+import com.terraformersmc.modmenu.util.mod.ModBadgeRenderer;
 import dev.terminalmc.modlistmemory.ModListMemory;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.util.FormattedCharSequence;

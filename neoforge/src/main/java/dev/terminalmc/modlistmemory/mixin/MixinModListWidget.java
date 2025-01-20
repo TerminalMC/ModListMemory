@@ -18,8 +18,8 @@ package dev.terminalmc.modlistmemory.mixin;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import com.terraformersmc.mod_menu.gui.widget.ModListWidget;
-import com.terraformersmc.mod_menu.util.mod.Mod;
+import com.terraformersmc.modmenu.gui.widget.ModListWidget;
+import com.terraformersmc.modmenu.util.mod.Mod;
 import dev.terminalmc.modlistmemory.config.Config;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
