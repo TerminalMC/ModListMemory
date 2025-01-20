@@ -10,7 +10,6 @@
     "MixinModBadgeRenderer",
     "MixinModListEntry",
     "MixinModListWidget",
-    "MixinModListWidgetAlt",
     "MixinModsScreen"
   ],
   "server": [

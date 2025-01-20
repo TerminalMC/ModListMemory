@@ -9,8 +9,9 @@
   "client": [
     "MixinModBadgeRenderer",
     "MixinModListEntry",
+    "MixinModListEntryRemap",
     "MixinModListWidget",
-    "MixinModListWidgetAlt",
+    "MixinModListWidgetRemap",
     "MixinModsScreen"
   ],
   "server": [

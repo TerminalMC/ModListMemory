@@ -23,6 +23,8 @@ import com.terraformersmc.mod_menu.util.mod.Mod;
 import dev.terminalmc.modlistmemory.config.Config;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -32,6 +34,14 @@ import static dev.terminalmc.modlistmemory.config.Config.options;
 
 @Mixin(value = ModListWidget.class, remap = false)
 public class MixinModListWidget {
+    @Inject(
+            method = "setScrollAmount",
+            at = @At("HEAD")
+    )
+    private void onSetScrollAmount(double amount, CallbackInfo ci) {
+        options().scrollAmount = amount;
+    }
+    
     @WrapOperation(
             method = "filter(Ljava/lang/String;ZZ)V",
             at = @At(

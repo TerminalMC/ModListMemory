@@ -16,7 +16,7 @@
 
 package dev.terminalmc.modlistmemory.mixin;
 
-import com.terraformersmc.mod_menu.gui.widget.ModListWidget;
+import com.terraformersmc.modmenu.gui.widget.ModListWidget;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -25,7 +25,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import static dev.terminalmc.modlistmemory.config.Config.options;
 
 @Mixin(ModListWidget.class)
-public class MixinModListWidgetAlt {
+public class MixinModListWidgetRemap {
     @Inject(
             method = "setScrollAmount",
             at = @At("HEAD")
