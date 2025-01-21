@@ -40,7 +40,7 @@ Works with [ModMenu](https://modrinth.com/mod/mOgUt4GM) on Fabric and
 
 
 <details open>
-<summary><b>Memory</b></summary>
+<summary><b>Persistence</b></summary>
 
 - `Persist on restart` makes the mod save its memory to the config file, allowing it to be restored when you restart
   the game.
