@@ -32,10 +32,10 @@ import static dev.terminalmc.modlistmemory.config.Config.options;
 @Mixin(ModBadgeRenderer.class)
 public abstract class MixinModBadgeRenderer {
     @Shadow
-    public abstract void drawBadge(GuiGraphics graphics, FormattedCharSequence text, int outlineColor, int fillColor, int mouseX, int mouseY);
-
-    @Shadow
     protected Mod mod;
+    
+    @Shadow
+    public abstract void drawBadge(GuiGraphics graphics, FormattedCharSequence text, int outlineColor, int fillColor, int mouseX, int mouseY);
 
     @Inject(
             method = "draw",

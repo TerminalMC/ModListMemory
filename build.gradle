@@ -8,6 +8,8 @@ plugins {
 
 subprojects {
     mod_version = "${mod_version}+${minecraft_version}"
+    if (name == "fabric") mod_version = "${mod_version}+${modmenu_version}"
+    if (name == "neoforge") mod_version = "${mod_version}+${bettermodlist_version}"
     version = mod_version
     group = mod_group
 

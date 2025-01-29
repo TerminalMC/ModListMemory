@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.1
+
+- Updated for Better Modlist v1.1.13
+- Added dependency version indicator to mod version meta
+- Tightened dependency version range
+
 ## 0.2.0
 
 - Added ability to pin and unpin mods using shift and control click

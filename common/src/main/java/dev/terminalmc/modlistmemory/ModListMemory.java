@@ -29,6 +29,7 @@ public class ModListMemory {
     public static final String MOD_ID = "modlistmemory";
     public static final String MOD_NAME = "ModListMemory";
     public static final ModLogger LOG = new ModLogger(MOD_NAME);
+    public static final int BADGE_TEXT = 0xCACACA;
     public static final int PINNED_BADGE_OUTLINE = 0xFFb36b19;
     public static final int PINNED_BADGE_FILL = 0xFF4d2e0b;
     public static final int RECENT_BADGE_OUTLINE = 0xFF1d9fb3;
