@@ -19,6 +19,7 @@ package dev.terminalmc.modlistmemory.config;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dev.terminalmc.modlistmemory.ModListMemory;
+import dev.terminalmc.modlistmemory.platform.Services;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -31,7 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Config {
-    private static final Path DIR_PATH = Path.of("config");
+    private static final Path CONFIG_DIR = Services.PLATFORM.getConfigDir();
     private static final String FILE_NAME = ModListMemory.MOD_ID + ".json";
     private static final String BACKUP_FILE_NAME = ModListMemory.MOD_ID + ".unreadable.json";
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
@@ -87,6 +88,7 @@ public class Config {
         public double scrollAmount = scrollAmountDefault;
     }
 
+    @SuppressWarnings("unused")
     public enum Mode {
         DISABLED,
         REMEMBER_RECENT,
@@ -111,28 +113,30 @@ public class Config {
         return instance;
     }
 
+    @SuppressWarnings("UnusedReturnValue")
     public static Config getAndSave() {
         get();
         save();
         return instance;
     }
 
+    @SuppressWarnings("unused")
     public static Config resetAndSave() {
         instance = new Config();
         save();
         return instance;
     }
 
-    // Cleanup
+    // Validation
 
-    private void cleanup() {
+    private void validate() {
         // Called before config is saved
     }
 
     // Load and save
 
     public static @NotNull Config load() {
-        Path file = DIR_PATH.resolve(FILE_NAME);
+        Path file = CONFIG_DIR.resolve(FILE_NAME);
         Config config = null;
         if (Files.exists(file)) {
             config = load(file, GSON);
@@ -144,6 +148,7 @@ public class Config {
         return config != null ? config : new Config();
     }
 
+    @SuppressWarnings("SameParameterValue")
     private static @Nullable Config load(Path file, Gson gson) {
         try (InputStreamReader reader = new InputStreamReader(
                 new FileInputStream(file.toFile()), StandardCharsets.UTF_8)) {
@@ -159,8 +164,8 @@ public class Config {
     private static void backup() {
         try {
             ModListMemory.LOG.warn("Copying {} to {}", FILE_NAME, BACKUP_FILE_NAME);
-            if (!Files.isDirectory(DIR_PATH)) Files.createDirectories(DIR_PATH);
-            Path file = DIR_PATH.resolve(FILE_NAME);
+            if (!Files.isDirectory(CONFIG_DIR)) Files.createDirectories(CONFIG_DIR);
+            Path file = CONFIG_DIR.resolve(FILE_NAME);
             Path backupFile = file.resolveSibling(BACKUP_FILE_NAME);
             Files.move(file, backupFile, StandardCopyOption.ATOMIC_MOVE, 
                     StandardCopyOption.REPLACE_EXISTING);
@@ -171,10 +176,10 @@ public class Config {
 
     public static void save() {
         if (instance == null) return;
-        instance.cleanup();
+        instance.validate();
         try {
-            if (!Files.isDirectory(DIR_PATH)) Files.createDirectories(DIR_PATH);
-            Path file = DIR_PATH.resolve(FILE_NAME);
+            if (!Files.isDirectory(CONFIG_DIR)) Files.createDirectories(CONFIG_DIR);
+            Path file = CONFIG_DIR.resolve(FILE_NAME);
             Path tempFile = file.resolveSibling(file.getFileName() + ".tmp");
             try (OutputStreamWriter writer = new OutputStreamWriter(
                     new FileOutputStream(tempFile.toFile()), StandardCharsets.UTF_8)) {
