@@ -6,7 +6,7 @@ plugins {
 dependencies {
     // JiJ MixinExtras if required to be newer than minimum loader-provided version
 //    implementation(jarJar("io.github.llamalad7:mixinextras-neoforge:${mixinextras_version}"))
-    
+
     // Cloth Config API
     api("me.shedaniel.cloth:cloth-config-neoforge:${clothconfig_version}")
 
@@ -26,7 +26,7 @@ neoForge {
     runs {
         configureEach {
             systemProperty("neoforge.enabledGameTestNamespaces", "${mod_id}")
-            // Unify the run config names with fabric
+            // Unify the run config names with Fabric
             ideName = "NeoForge ${it.name.capitalize()} (${project.path})"
         }
         client {
