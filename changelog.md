@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.0
+
+- Initial stable release
+
 ## 0.2.1
 
 - Updated for Better Modlist v1.1.13
