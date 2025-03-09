@@ -16,6 +16,8 @@
 
 package dev.terminalmc.modlistmemory.mixin;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.terraformersmc.modmenu.gui.widget.ModListWidget;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -26,6 +28,17 @@ import static dev.terminalmc.modlistmemory.config.Config.options;
 
 @Mixin(ModListWidget.class)
 public class MixinModListWidgetRemap {
+    @WrapOperation(
+            method = "<init>",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lcom/terraformersmc/modmenu/gui/widget/ModListWidget;setScrollAmount(D)V"
+            )
+    )
+    private void wrapSetScrollAmount(ModListWidget instance, double amount, Operation<Void> original) {
+        // cancel
+    }
+    
     @Inject(
             method = "setScrollAmount",
             at = @At("HEAD")

@@ -47,7 +47,7 @@ public class MixinModListEntry {
     }
 
     @Inject(
-            method = "mouseClicked",
+            method = "m_6375_",
             at = @At("HEAD")
     )
     private void onMouseClicked(double mouseX, double mouseY, int delta, CallbackInfoReturnable<Boolean> cir) {

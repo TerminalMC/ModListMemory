@@ -34,8 +34,19 @@ import static dev.terminalmc.modlistmemory.config.Config.options;
 
 @Mixin(value = ModListWidget.class, remap = false)
 public class MixinModListWidget {
+    @WrapOperation(
+            method = "<init>",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lcom/terraformersmc/mod_menu/gui/widget/ModListWidget;m_93410_(D)V"
+            )
+    )
+    private void wrapSetScrollAmount(ModListWidget instance, double amount, Operation<Void> original) {
+        // cancel
+    }
+
     @Inject(
-            method = "setScrollAmount",
+            method = "m_93410_",
             at = @At("HEAD")
     )
     private void onSetScrollAmount(double amount, CallbackInfo ci) {
@@ -76,13 +87,13 @@ public class MixinModListWidget {
             // Add recent mods (reverse order, on top of mod list)
             for (Mod mod : recentMods) {
                 if (mod != null) {
-                    modList.addFirst(mod);
+                    modList.add(0, mod);
                 }
             }
             // Add pinned mods (reverse order, on top of recent mods)
             for (Mod mod : pinnedMods) {
                 if (mod != null) {
-                    modList.addFirst(mod);
+                    modList.add(0, mod);
                 }
             }
         }

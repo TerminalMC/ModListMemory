@@ -62,9 +62,10 @@ public class ModListMemory {
         if (options().pinnedMods.contains(modId)) return; // Ignore pinned mods
         // Move to the top of the recent list
         options().recentMods.remove(modId);
-        options().recentMods.addLast(modId);
-        while (options().recentMods.size() > options().recentModsSize) {
-            options().recentMods.removeFirst();
+        options().recentMods.add(options().recentMods.size(), modId);
+        while (options().recentMods.size() > options().recentModsSize
+                && !options().recentMods.isEmpty()) {
+            options().recentMods.remove(0);
         }
         if (options().persistOnRestart && options().saveOnUpdate) {
             Config.save();
@@ -76,9 +77,10 @@ public class ModListMemory {
             // Pin, or move to the top of the pin list
             options().recentMods.remove(modId);
             options().pinnedMods.remove(modId);
-            options().pinnedMods.addLast(modId);
-            while (options().pinnedMods.size() > options().pinnedModsSize) {
-                options().pinnedMods.removeFirst();
+            options().pinnedMods.add(options().pinnedMods.size(), modId);
+            while (options().pinnedMods.size() > options().pinnedModsSize
+                    && !options().pinnedMods.isEmpty()) {
+                options().pinnedMods.remove(0);
             }
             if (options().persistOnRestart && options().saveOnUpdate) {
                 Config.save();
