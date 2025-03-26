@@ -33,9 +33,9 @@ import static dev.terminalmc.modlistmemory.config.Config.options;
 public abstract class MixinModBadgeRenderer {
     @Shadow
     protected Mod mod;
-    
+
     @Shadow
-    public abstract void drawBadge(GuiGraphics graphics, FormattedCharSequence text, int outlineColor, int fillColor, int mouseX, int mouseY);
+    public abstract void drawBadge(GuiGraphics graphics, FormattedCharSequence text, int outlineColor, int fillColor);
 
     @Inject(
             method = "draw",
@@ -46,14 +46,12 @@ public abstract class MixinModBadgeRenderer {
             if (ModListMemory.pinnedBadgeText != null 
                     && options().pinnedMods.contains(mod.getId())) {
                 drawBadge(graphics, ModListMemory.pinnedBadgeText,
-                        ModListMemory.PINNED_BADGE_OUTLINE, ModListMemory.PINNED_BADGE_FILL, 
-                        mouseX, mouseY);
+                        ModListMemory.PINNED_BADGE_OUTLINE, ModListMemory.PINNED_BADGE_FILL);
             }
             else if (ModListMemory.recentBadgeText != null 
                     && options().recentMods.contains(mod.getId())) {
                 drawBadge(graphics, ModListMemory.recentBadgeText, 
-                        ModListMemory.RECENT_BADGE_OUTLINE, ModListMemory.RECENT_BADGE_FILL,
-                        mouseX, mouseY);
+                        ModListMemory.RECENT_BADGE_OUTLINE, ModListMemory.RECENT_BADGE_FILL);
             }
         }
     }
