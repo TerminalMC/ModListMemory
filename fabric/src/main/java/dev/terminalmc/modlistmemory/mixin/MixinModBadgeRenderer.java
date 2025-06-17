@@ -35,7 +35,14 @@ public abstract class MixinModBadgeRenderer {
     protected Mod mod;
 
     @Shadow
-    public abstract void drawBadge(GuiGraphics graphics, FormattedCharSequence text, int outlineColor, int fillColor);
+    public abstract void drawBadge(
+            GuiGraphics graphics,
+            FormattedCharSequence text,
+            int outlineColor,
+            int fillColor,
+            int mouseX,
+            int mouseY
+    );
 
     @Inject(
             method = "draw",
@@ -45,13 +52,25 @@ public abstract class MixinModBadgeRenderer {
         if (options().showBadges) {
             if (ModListMemory.pinnedBadgeText != null 
                     && options().pinnedMods.contains(mod.getId())) {
-                drawBadge(graphics, ModListMemory.pinnedBadgeText,
-                        ModListMemory.PINNED_BADGE_OUTLINE, ModListMemory.PINNED_BADGE_FILL);
+                drawBadge(
+                        graphics,
+                        ModListMemory.pinnedBadgeText,
+                        ModListMemory.PINNED_BADGE_OUTLINE,
+                        ModListMemory.PINNED_BADGE_FILL,
+                        mouseX,
+                        mouseY
+                );
             }
             else if (ModListMemory.recentBadgeText != null 
                     && options().recentMods.contains(mod.getId())) {
-                drawBadge(graphics, ModListMemory.recentBadgeText, 
-                        ModListMemory.RECENT_BADGE_OUTLINE, ModListMemory.RECENT_BADGE_FILL);
+                drawBadge(
+                        graphics,
+                        ModListMemory.recentBadgeText,
+                        ModListMemory.RECENT_BADGE_OUTLINE,
+                        ModListMemory.RECENT_BADGE_FILL,
+                        mouseX,
+                        mouseY
+                );
             }
         }
     }
