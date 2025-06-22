@@ -29,7 +29,7 @@ public class ModListMemory {
     public static final String MOD_ID = "modlistmemory";
     public static final String MOD_NAME = "ModListMemory";
     public static final ModLogger LOG = new ModLogger(MOD_NAME);
-    public static final int BADGE_TEXT = 0xCACACA;
+    public static final int BADGE_TEXT = 0xFFCACACA;
     public static final int PINNED_BADGE_OUTLINE = 0xFFb36b19;
     public static final int PINNED_BADGE_FILL = 0xFF4d2e0b;
     public static final int RECENT_BADGE_OUTLINE = 0xFF1d9fb3;
@@ -40,7 +40,7 @@ public class ModListMemory {
 
     public static void init() {
         Config.getAndSave();
-        
+
         if (!options().persistOnRestart) {
             options().recentMods.clear();
             options().scrollAmount = Config.Options.scrollAmountDefault;
@@ -52,7 +52,7 @@ public class ModListMemory {
             Config.save();
         }
     }
-    
+
     public static void onConfigSaved(Config config) {
         pinnedBadgeText = Component.literal(config.options.pinnedText).getVisualOrderText();
         recentBadgeText = Component.literal(config.options.recentText).getVisualOrderText();
@@ -70,7 +70,7 @@ public class ModListMemory {
             Config.save();
         }
     }
-    
+
     public static boolean onModClicked(String modId) {
         if (ModListMemory.hasKeyDown(options().pinKey)) {
             // Pin, or move to the top of the pin list
@@ -84,8 +84,8 @@ public class ModListMemory {
                 Config.save();
             }
             return true;
-        } 
-        else if (ModListMemory.hasKeyDown(options().unpinKey) 
+        }
+        else if (ModListMemory.hasKeyDown(options().unpinKey)
                 && options().pinnedMods.contains(modId)) {
             // Unpin
             options().pinnedMods.remove(modId);
@@ -96,7 +96,7 @@ public class ModListMemory {
         }
         return false;
     }
-    
+
     public static boolean hasKeyDown(Config.Key key) {
         return switch(key) {
             case CONTROL -> Screen.hasControlDown();
