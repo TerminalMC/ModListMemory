@@ -19,7 +19,7 @@ package dev.terminalmc.modlistmemory;
 import dev.terminalmc.modlistmemory.config.Config;
 import dev.terminalmc.modlistmemory.util.ModLogger;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.FormattedCharSequence;
 
@@ -71,8 +71,8 @@ public class ModListMemory {
         }
     }
 
-    public static boolean onModClicked(String modId) {
-        if (ModListMemory.hasKeyDown(options().pinKey)) {
+    public static boolean onModClicked(MouseButtonEvent click, String modId) {
+        if (ModListMemory.hasKeyDown(click, options().pinKey)) {
             // Pin, or move to the top of the pin list
             options().recentMods.remove(modId);
             options().pinnedMods.remove(modId);
@@ -85,7 +85,7 @@ public class ModListMemory {
             }
             return true;
         }
-        else if (ModListMemory.hasKeyDown(options().unpinKey)
+        else if (ModListMemory.hasKeyDown(click, options().unpinKey)
                 && options().pinnedMods.contains(modId)) {
             // Unpin
             options().pinnedMods.remove(modId);
@@ -97,11 +97,11 @@ public class ModListMemory {
         return false;
     }
 
-    public static boolean hasKeyDown(Config.Key key) {
+    public static boolean hasKeyDown(MouseButtonEvent click, Config.Key key) {
         return switch(key) {
-            case CONTROL -> Screen.hasControlDown();
-            case ALT -> Screen.hasAltDown();
-            case SHIFT -> Screen.hasShiftDown();
+            case CONTROL -> click.hasControlDown();
+            case ALT -> click.hasAltDown();
+            case SHIFT -> click.hasShiftDown();
             case NONE -> false;
         };
     }

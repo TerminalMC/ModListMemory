@@ -20,6 +20,7 @@ import com.terraformersmc.modmenu.gui.widget.ModListWidget;
 import com.terraformersmc.modmenu.gui.widget.entries.ModListEntry;
 import com.terraformersmc.modmenu.util.mod.Mod;
 import dev.terminalmc.modlistmemory.ModListMemory;
+import net.minecraft.client.input.MouseButtonEvent;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -41,8 +42,12 @@ public class MixinModListEntryRemap {
             method = "mouseClicked",
             at = @At("HEAD")
     )
-    private void onMouseClicked(double mouseX, double mouseY, int delta, CallbackInfoReturnable<Boolean> cir) {
-        if (ModListMemory.onModClicked(mod.getId())) {
+    private void onMouseClicked(
+            MouseButtonEvent click,
+            boolean doubleClick,
+            CallbackInfoReturnable<Boolean> cir
+    ) {
+        if (ModListMemory.onModClicked(click, mod.getId())) {
             list.reloadFilters();
         }
     }
