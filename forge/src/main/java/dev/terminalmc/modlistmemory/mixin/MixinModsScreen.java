@@ -27,13 +27,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import static dev.terminalmc.modlistmemory.config.Config.options;
 
-@Mixin(ModsScreen.class)
+@Mixin(value = ModsScreen.class, remap = false)
 public class MixinModsScreen {
     @Shadow
     private ModListWidget modList;
 
     @Inject(
-            method = "init",
+            method = "m_7856_",
             at = @At("RETURN")
     )
     private void afterInit(CallbackInfo ci) {

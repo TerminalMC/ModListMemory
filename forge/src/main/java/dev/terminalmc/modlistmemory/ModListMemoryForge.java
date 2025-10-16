@@ -18,26 +18,28 @@ package dev.terminalmc.modlistmemory;
 
 import dev.terminalmc.modlistmemory.gui.screen.ConfigScreenProvider;
 import net.minecraft.client.Minecraft;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.ModLoadingContext;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.fml.common.Mod;
-import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
-import net.neoforged.neoforge.event.GameShuttingDownEvent;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.ConfigScreenHandler;
+import net.minecraftforge.event.GameShuttingDownEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModLoadingContext;
+import net.minecraftforge.fml.common.Mod;
 
-@Mod(value = ModListMemory.MOD_ID, dist = Dist.CLIENT)
-public class ModListMemoryNeoForge {
-    public ModListMemoryNeoForge() {
+@Mod(ModListMemory.MOD_ID)
+public class ModListMemoryForge {
+    public ModListMemoryForge() {
         // Config screen
-        ModLoadingContext.get().registerExtensionPoint(IConfigScreenFactory.class,
-                () -> (mc, parent) -> ConfigScreenProvider.getConfigScreen(parent));
+        //noinspection removal
+        ModLoadingContext.get().registerExtensionPoint(ConfigScreenHandler.ConfigScreenFactory.class,
+                () -> new ConfigScreenHandler.ConfigScreenFactory(
+                        (minecraft, parent) -> ConfigScreenProvider.getConfigScreen(parent))
+        );
 
         // Main initialization
         ModListMemory.init();
     }
 
-    @EventBusSubscriber(modid = ModListMemory.MOD_ID, value = Dist.CLIENT)
+    @Mod.EventBusSubscriber(modid = ModListMemory.MOD_ID, value = Dist.CLIENT)
     static class ClientEventHandler {
         // Shutdown event
         @SubscribeEvent

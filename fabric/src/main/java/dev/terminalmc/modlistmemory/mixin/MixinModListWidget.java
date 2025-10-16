@@ -66,13 +66,13 @@ public class MixinModListWidget {
             // Add recent mods (reverse order, on top of mod list)
             for (Mod mod : recentMods) {
                 if (mod != null) {
-                    modList.addFirst(mod);
+                    modList.add(0, mod);
                 }
             }
             // Add pinned mods (reverse order, on top of recent mods)
             for (Mod mod : pinnedMods) {
                 if (mod != null) {
-                    modList.addFirst(mod);
+                    modList.add(0, mod);
                 }
             }
         }

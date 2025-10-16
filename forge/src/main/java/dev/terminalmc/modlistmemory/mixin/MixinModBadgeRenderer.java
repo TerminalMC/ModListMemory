@@ -29,7 +29,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import static dev.terminalmc.modlistmemory.config.Config.options;
 
-@Mixin(ModBadgeRenderer.class)
+@Mixin(value = ModBadgeRenderer.class, remap = false)
 public abstract class MixinModBadgeRenderer {
     @Shadow
     protected Mod mod;
