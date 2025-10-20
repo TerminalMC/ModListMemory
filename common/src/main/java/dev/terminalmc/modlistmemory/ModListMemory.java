@@ -26,6 +26,7 @@ import net.minecraft.util.FormattedCharSequence;
 import static dev.terminalmc.modlistmemory.config.Config.options;
 
 public class ModListMemory {
+
     public static final String MOD_ID = "modlistmemory";
     public static final String MOD_NAME = "ModListMemory";
     public static final ModLogger LOG = new ModLogger(MOD_NAME);
@@ -35,8 +36,10 @@ public class ModListMemory {
     public static final int RECENT_BADGE_OUTLINE = 0xFF1d9fb3;
     public static final int RECENT_BADGE_FILL = 0xFF0c444d;
 
-    public static FormattedCharSequence pinnedBadgeText = Component.literal("I").getVisualOrderText();
-    public static FormattedCharSequence recentBadgeText = Component.literal("R").getVisualOrderText();
+    public static FormattedCharSequence pinnedBadgeText =
+            Component.literal("I").getVisualOrderText();
+    public static FormattedCharSequence recentBadgeText =
+            Component.literal("R").getVisualOrderText();
 
     public static void init() {
         Config.getAndSave();
@@ -59,7 +62,8 @@ public class ModListMemory {
     }
 
     public static void onModOpened(String modId) {
-        if (options().pinnedMods.contains(modId)) return; // Ignore pinned mods
+        if (options().pinnedMods.contains(modId))
+            return; // Ignore pinned mods
         // Move to the top of the recent list
         options().recentMods.remove(modId);
         options().recentMods.addLast(modId);
@@ -84,8 +88,7 @@ public class ModListMemory {
                 Config.save();
             }
             return true;
-        }
-        else if (ModListMemory.hasKeyDown(click, options().unpinKey)
+        } else if (ModListMemory.hasKeyDown(click, options().unpinKey)
                 && options().pinnedMods.contains(modId)) {
             // Unpin
             options().pinnedMods.remove(modId);
@@ -98,7 +101,7 @@ public class ModListMemory {
     }
 
     public static boolean hasKeyDown(MouseButtonEvent click, Config.Key key) {
-        return switch(key) {
+        return switch (key) {
             case CONTROL -> click.hasControlDown();
             case ALT -> click.hasAltDown();
             case SHIFT -> click.hasShiftDown();

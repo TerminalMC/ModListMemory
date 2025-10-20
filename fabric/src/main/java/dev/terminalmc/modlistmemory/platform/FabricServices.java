@@ -16,14 +16,35 @@
 
 package dev.terminalmc.modlistmemory.platform;
 
-import dev.terminalmc.modlistmemory.platform.services.IPlatformInfo;
-import net.neoforged.fml.loading.FMLPaths;
+import dev.terminalmc.modlistmemory.platform.services.IPlatformServices;
+import net.fabricmc.loader.api.FabricLoader;
 
 import java.nio.file.Path;
 
-public class NeoForgePlatformInfo implements IPlatformInfo {
+public class FabricServices implements IPlatformServices {
+
+    @Override
+    public boolean isDevEnv() {
+        return FabricLoader.getInstance().isDevelopmentEnvironment();
+    }
+
+    @Override
+    public boolean isModLoaded(String modId) {
+        return FabricLoader.getInstance().isModLoaded(modId);
+    }
+
+    @Override
+    public String getPlatformName() {
+        return "Fabric";
+    }
+
+    @Override
+    public Path getGameDir() {
+        return FabricLoader.getInstance().getGameDir();
+    }
+
     @Override
     public Path getConfigDir() {
-        return FMLPaths.CONFIGDIR.get();
+        return FabricLoader.getInstance().getConfigDir();
     }
 }

@@ -31,11 +31,18 @@ import static dev.terminalmc.modlistmemory.config.Config.options;
 
 @Mixin(ModBadgeRenderer.class)
 public abstract class MixinModBadgeRenderer {
+
     @Shadow
     protected Mod mod;
 
     @Shadow
-    public abstract void drawBadge(GuiGraphics guiGraphics, FormattedCharSequence charSequence, int outlineColor, int fillColor, int textColor);
+    public abstract void drawBadge(
+            GuiGraphics guiGraphics,
+            FormattedCharSequence charSequence,
+            int outlineColor,
+            int fillColor,
+            int textColor
+    );
 
     @Inject(
             method = "draw",
@@ -45,15 +52,18 @@ public abstract class MixinModBadgeRenderer {
         if (options().showBadges) {
             if (ModListMemory.pinnedBadgeText != null
                     && options().pinnedMods.contains(mod.getId())) {
-                drawBadge(graphics, ModListMemory.pinnedBadgeText,
+                drawBadge(
+                        graphics, ModListMemory.pinnedBadgeText,
                         ModListMemory.PINNED_BADGE_OUTLINE, ModListMemory.PINNED_BADGE_FILL,
-                        ModListMemory.BADGE_TEXT);
-            }
-            else if (ModListMemory.recentBadgeText != null
+                        ModListMemory.BADGE_TEXT
+                );
+            } else if (ModListMemory.recentBadgeText != null
                     && options().recentMods.contains(mod.getId())) {
-                drawBadge(graphics, ModListMemory.recentBadgeText,
+                drawBadge(
+                        graphics, ModListMemory.recentBadgeText,
                         ModListMemory.RECENT_BADGE_OUTLINE, ModListMemory.RECENT_BADGE_FILL,
-                        ModListMemory.BADGE_TEXT);
+                        ModListMemory.BADGE_TEXT
+                );
             }
         }
     }

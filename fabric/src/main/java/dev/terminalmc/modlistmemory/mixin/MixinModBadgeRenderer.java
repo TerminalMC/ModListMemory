@@ -31,6 +31,7 @@ import static dev.terminalmc.modlistmemory.config.Config.options;
 
 @Mixin(ModBadgeRenderer.class)
 public abstract class MixinModBadgeRenderer {
+
     @Shadow
     protected Mod mod;
 
@@ -50,7 +51,7 @@ public abstract class MixinModBadgeRenderer {
     )
     private void afterDraw(GuiGraphics graphics, int mouseX, int mouseY, CallbackInfo ci) {
         if (options().showBadges) {
-            if (ModListMemory.pinnedBadgeText != null 
+            if (ModListMemory.pinnedBadgeText != null
                     && options().pinnedMods.contains(mod.getId())) {
                 drawBadge(
                         graphics,
@@ -60,8 +61,7 @@ public abstract class MixinModBadgeRenderer {
                         mouseX,
                         mouseY
                 );
-            }
-            else if (ModListMemory.recentBadgeText != null 
+            } else if (ModListMemory.recentBadgeText != null
                     && options().recentMods.contains(mod.getId())) {
                 drawBadge(
                         graphics,

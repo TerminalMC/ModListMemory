@@ -32,8 +32,12 @@ import java.util.List;
 
 import static dev.terminalmc.modlistmemory.config.Config.options;
 
-@Mixin(value = ModListWidget.class, remap = false)
+@Mixin(
+        value = ModListWidget.class,
+        remap = false
+)
 public class MixinModListWidget {
+
     @Inject(
             method = "setScrollAmount",
             at = @At("HEAD")
@@ -41,7 +45,7 @@ public class MixinModListWidget {
     private void onSetScrollAmount(double amount, CallbackInfo ci) {
         options().scrollAmount = amount;
     }
-    
+
     @WrapOperation(
             method = "filter(Ljava/lang/String;ZZ)V",
             at = @At(
@@ -49,7 +53,11 @@ public class MixinModListWidget {
                     target = "Ljava/util/List;sort(Ljava/util/Comparator;)V"
             )
     )
-    private void wrapSort(List<Mod> modList, Comparator<? super Mod> comparator, Operation<Void> original) {
+    private void wrapSort(
+            List<Mod> modList,
+            Comparator<? super Mod> comparator,
+            Operation<Void> original
+    ) {
         original.call(modList, comparator);
         // Add recent mods to the top of the list
         if (options().mode.equals(Config.Mode.REMEMBER_RECENT)) {

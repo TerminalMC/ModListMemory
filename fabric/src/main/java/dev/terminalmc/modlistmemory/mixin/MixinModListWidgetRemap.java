@@ -26,6 +26,7 @@ import static dev.terminalmc.modlistmemory.config.Config.options;
 
 @Mixin(ModListWidget.class)
 public class MixinModListWidgetRemap {
+
     @Inject(
             method = "setScrollAmount",
             at = @At("HEAD")

@@ -18,9 +18,38 @@ package dev.terminalmc.modlistmemory.platform.services;
 
 import java.nio.file.Path;
 
-public interface IPlatformInfo {
+@SuppressWarnings("unused")
+public interface IPlatformServices {
+
+    /**
+     * @return {@code true} if in a development environment.
+     */
+    boolean isDevEnv();
+
+    /**
+     * @return {@code true} if the mod is loaded.
+     */
+    boolean isModLoaded(String modId);
+
+    /**
+     * @return the name of the current platform.
+     */
+    String getPlatformName();
+
+    /**
+     * @return the game directory of the instance.
+     */
+    Path getGameDir();
+
     /**
      * @return the configuration directory of the instance.
      */
     Path getConfigDir();
+
+    /**
+     * @return the name of the environment type.
+     */
+    default String getEnvName() {
+        return isDevEnv() ? "development" : "production";
+    }
 }

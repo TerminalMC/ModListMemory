@@ -26,19 +26,29 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.neoforged.neoforge.event.GameShuttingDownEvent;
 
-@Mod(value = ModListMemory.MOD_ID, dist = Dist.CLIENT)
+@Mod(
+        value = ModListMemory.MOD_ID,
+        dist = Dist.CLIENT
+)
 public class ModListMemoryNeoForge {
+
     public ModListMemoryNeoForge() {
         // Config screen
-        ModLoadingContext.get().registerExtensionPoint(IConfigScreenFactory.class,
-                () -> (mc, parent) -> ConfigScreenProvider.getConfigScreen(parent));
+        ModLoadingContext.get().registerExtensionPoint(
+                IConfigScreenFactory.class,
+                () -> (mc, parent) -> ConfigScreenProvider.getConfigScreen(parent)
+        );
 
         // Main initialization
         ModListMemory.init();
     }
 
-    @EventBusSubscriber(modid = ModListMemory.MOD_ID, value = Dist.CLIENT)
+    @EventBusSubscriber(
+            modid = ModListMemory.MOD_ID,
+            value = Dist.CLIENT
+    )
     static class ClientEventHandler {
+
         // Shutdown event
         @SubscribeEvent
         public static void shutdownEvent(GameShuttingDownEvent event) {

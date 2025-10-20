@@ -29,8 +29,12 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(value = ModListEntry.class, remap = false)
+@Mixin(
+        value = ModListEntry.class,
+        remap = false
+)
 public class MixinModListEntry {
+
     @Shadow
     @Final
     public Mod mod;

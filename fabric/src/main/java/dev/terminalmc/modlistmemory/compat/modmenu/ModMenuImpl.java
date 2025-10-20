@@ -14,12 +14,14 @@
  * limitations under the License.
  */
 
-package dev.terminalmc.modlistmemory.gui.screen;
+package dev.terminalmc.modlistmemory.compat.modmenu;
 
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;
+import dev.terminalmc.modlistmemory.gui.screen.ConfigScreenProvider;
 
-public class ModMenuIntegration implements ModMenuApi {
+public class ModMenuImpl implements ModMenuApi {
+
     @Override
     public ConfigScreenFactory<?> getModConfigScreenFactory() {
         return ConfigScreenProvider::getConfigScreen;

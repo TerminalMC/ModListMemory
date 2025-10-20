@@ -21,13 +21,16 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
 import net.fabricmc.fabric.api.event.Event;
 
 public class ModListMemoryFabric implements ClientModInitializer {
+
     @Override
     public void onInitializeClient() {
         // Main initialization
         ModListMemory.init();
 
         // Shutdown event
-        ClientLifecycleEvents.CLIENT_STOPPING.register(Event.DEFAULT_PHASE, 
-                ModListMemory::onClientShutdown);
+        ClientLifecycleEvents.CLIENT_STOPPING.register(
+                Event.DEFAULT_PHASE,
+                ModListMemory::onClientShutdown
+        );
     }
 }

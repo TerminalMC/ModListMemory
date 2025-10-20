@@ -29,6 +29,7 @@ import static dev.terminalmc.modlistmemory.config.Config.options;
 
 @Mixin(ModsScreen.class)
 public class MixinModsScreen {
+
     @Shadow
     private ModListWidget modList;
 
