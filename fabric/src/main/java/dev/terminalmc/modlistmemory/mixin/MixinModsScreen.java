@@ -16,8 +16,11 @@
 
 package dev.terminalmc.modlistmemory.mixin;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.terraformersmc.modmenu.gui.ModsScreen;
 import com.terraformersmc.modmenu.gui.widget.ModListWidget;
+import com.terraformersmc.modmenu.gui.widget.entries.ModListEntry;
 import dev.terminalmc.modlistmemory.config.Config;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -32,6 +35,26 @@ public class MixinModsScreen {
 
     @Shadow
     private ModListWidget modList;
+
+    @Shadow
+    private ModListEntry selected;
+
+    @WrapOperation(
+            method = "init",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lcom/terraformersmc/modmenu/gui/ModsScreen;updateSelectedEntry(Lcom/terraformersmc/modmenu/gui/widget/entries/ModListEntry;)V"
+            )
+    )
+    private void wrapUpdatedSelectedEntry(
+            ModsScreen instance,
+            ModListEntry modListEntry,
+            Operation<Void> original
+    ) {
+        if (this.selected == null) {
+            original.call(instance, modListEntry);
+        }
+    }
 
     @Inject(
             method = "init",
