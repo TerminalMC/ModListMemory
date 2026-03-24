@@ -1,6 +1,7 @@
 {
   "message.modlistmemory.installCloth": "Установите Cloth Config API для доступа к параметрам мода",
   "message.modlistmemory.viewModrinth": "Посмотреть на Modrinth",
+  "message.modlistmemory.configScreenDisabled": "Config screen is not available on this version.",
   "modlistmemory.name": "ModListMemory",
   "option.modlistmemory.main": "Главное",
   "option.modlistmemory.main.key.ALT": "Alt",

@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 TerminalMC
+ * Copyright 2026 TerminalMC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,7 @@ package dev.terminalmc.modlistmemory.config;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dev.terminalmc.modlistmemory.ModListMemory;
-import dev.terminalmc.modlistmemory.platform.Services;
+import dev.terminalmc.modlistmemory.platform.services.PlatformServices;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -33,7 +33,7 @@ import java.util.List;
 
 public class Config {
 
-    private static final Path CONFIG_DIR = Services.PLATFORM.getConfigDir();
+    private static final Path CONFIG_DIR = PlatformServices.getInstance().getConfigDir();
     private static final String FILE_NAME = ModListMemory.MOD_ID + ".json";
     private static final String BACKUP_FILE_NAME = ModListMemory.MOD_ID + ".unreadable.json";
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();

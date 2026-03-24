@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 TerminalMC
+ * Copyright 2026 TerminalMC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,7 +25,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import static dev.terminalmc.modlistmemory.config.Config.options;
 
 @Mixin(ModListWidget.class)
-public class MixinModListWidgetRemap {
+public abstract class MixinModListWidgetRemap {
 
     @Inject(
             method = "setScrollAmount",

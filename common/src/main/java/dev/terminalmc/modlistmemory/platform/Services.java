@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 TerminalMC
+ * Copyright 2026 TerminalMC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,21 +16,30 @@
 
 package dev.terminalmc.modlistmemory.platform;
 
-import dev.terminalmc.modlistmemory.ModListMemory;
-import dev.terminalmc.modlistmemory.platform.services.IPlatformServices;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ServiceLoader;
+import java.util.function.Supplier;
 
 public class Services {
 
-    public static final IPlatformServices PLATFORM = load(IPlatformServices.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger("ModListMemory (Service)");
 
     public static <T> T load(Class<T> clazz) {
-        final T loadedService = ServiceLoader.load(clazz)
+        final T loadedService = ServiceLoader.load(clazz, clazz.getClassLoader())
                 .findFirst()
                 .orElseThrow(() -> new NullPointerException(
                         "Failed to load service for " + clazz.getName()));
-        ModListMemory.LOG.debug("Loaded {} for service {}", loadedService, clazz);
+        LOGGER.debug("Loaded {} for service {}", loadedService, clazz);
+        return loadedService;
+    }
+
+    public static <T> T loadOr(Class<T> clazz, Supplier<T> supplier) {
+        final T loadedService = ServiceLoader.load(clazz)
+                .findFirst()
+                .orElse(supplier.get());
+        LOGGER.debug("Loaded {} for service {}", loadedService, clazz);
         return loadedService;
     }
 }

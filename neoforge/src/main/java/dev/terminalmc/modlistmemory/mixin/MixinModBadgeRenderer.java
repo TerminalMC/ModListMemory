@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 TerminalMC
+ * Copyright 2026 TerminalMC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,7 @@ package dev.terminalmc.modlistmemory.mixin;
 import com.terraformersmc.modmenu.util.mod.Mod;
 import com.terraformersmc.modmenu.util.mod.ModBadgeRenderer;
 import dev.terminalmc.modlistmemory.ModListMemory;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.util.FormattedCharSequence;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -37,7 +37,7 @@ public abstract class MixinModBadgeRenderer {
 
     @Shadow
     public abstract void drawBadge(
-            GuiGraphics guiGraphics,
+            GuiGraphicsExtractor GuiGraphicsExtractor,
             FormattedCharSequence charSequence,
             int outlineColor,
             int fillColor,
@@ -48,7 +48,7 @@ public abstract class MixinModBadgeRenderer {
             method = "draw",
             at = @At("TAIL")
     )
-    private void afterDraw(GuiGraphics graphics, CallbackInfo ci) {
+    private void afterDraw(GuiGraphicsExtractor graphics, CallbackInfo ci) {
         if (options().showBadges) {
             if (ModListMemory.pinnedBadgeText != null
                     && options().pinnedMods.contains(mod.getId())) {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 TerminalMC
+ * Copyright 2026 TerminalMC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,10 +16,18 @@
 
 package dev.terminalmc.modlistmemory.platform.services;
 
+import dev.terminalmc.modlistmemory.platform.Services;
+
 import java.nio.file.Path;
 
 @SuppressWarnings("unused")
-public interface IPlatformServices {
+public interface PlatformServices {
+
+    PlatformServices INSTANCE = Services.load(PlatformServices.class);
+
+    static PlatformServices getInstance() {
+        return INSTANCE;
+    }
 
     /**
      * @return {@code true} if in a development environment.
