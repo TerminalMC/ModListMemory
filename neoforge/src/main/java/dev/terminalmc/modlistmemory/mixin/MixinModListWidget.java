@@ -38,6 +38,20 @@ import static dev.terminalmc.modlistmemory.config.Config.options;
 )
 public abstract class MixinModListWidget {
 
+    @WrapOperation(
+            method = "finalizeInit",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lcom/terraformersmc/modmenu/gui/widget/ModListWidget;setScrollAmount(D)V"
+            )
+    )
+    private void wrapRestoreScroll(
+            ModListWidget instance,
+            double amount,
+            Operation<Void> original
+    ) {
+    }
+
     @Inject(
             method = "setScrollAmount",
             at = @At("HEAD")
