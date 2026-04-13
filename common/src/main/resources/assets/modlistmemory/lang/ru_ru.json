@@ -5,6 +5,7 @@
   "modlistmemory.name": "ModListMemory",
   "modmenu.nameTranslation.modlistmemory": "ModListMemory",
   "modmenu.descriptionTranslation.modlistmemory": "Перемещает недавно открытые моды в начало списка или запоминает позицию прокрутки.",
+  "fml.menu.mods.info.description.modlistmemory": "Перемещает недавно открытые моды в начало списка или запоминает позицию прокрутки.",
   "option.modlistmemory.main": "Основное",
   "option.modlistmemory.main.key.ALT": "Alt",
   "option.modlistmemory.main.key.CONTROL": "Control",
