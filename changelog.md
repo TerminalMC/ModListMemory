@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.2.1
+
+- Updated Russian translation (rfin0)
+
 ## 1.0.0
 
 - Initial stable release
