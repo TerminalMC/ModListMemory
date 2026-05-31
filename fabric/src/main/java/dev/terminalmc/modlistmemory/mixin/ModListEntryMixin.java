@@ -16,32 +16,25 @@
 
 package dev.terminalmc.modlistmemory.mixin;
 
-import com.terraformersmc.modmenu.gui.widget.ModListWidget;
 import com.terraformersmc.modmenu.gui.widget.entries.ModListEntry;
 import com.terraformersmc.modmenu.util.mod.Mod;
 import dev.terminalmc.modlistmemory.ModListMemory;
-import net.minecraft.client.input.MouseButtonEvent;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(
         value = ModListEntry.class,
         remap = false
 )
-public abstract class MixinModListEntry {
+public abstract class ModListEntryMixin {
 
     @Shadow
     @Final
     public Mod mod;
-
-    @Shadow
-    @Final
-    protected ModListWidget list;
 
     @Inject(
             method = "openConfig",
@@ -49,19 +42,5 @@ public abstract class MixinModListEntry {
     )
     private void onOpenConfig(CallbackInfo ci) {
         ModListMemory.onModOpened(mod.getId());
-    }
-
-    @Inject(
-            method = "mouseClicked",
-            at = @At("HEAD")
-    )
-    private void onMouseClicked(
-            MouseButtonEvent click,
-            boolean doubleClick,
-            CallbackInfoReturnable<Boolean> cir
-    ) {
-        if (ModListMemory.onModClicked(click, mod.getId())) {
-            list.reloadFilters();
-        }
     }
 }

@@ -26,10 +26,14 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(ModListEntry.class)
-public abstract class MixinModListEntryRemap {
+@Mixin(
+        value = ModListEntry.class,
+        remap = false
+)
+public abstract class ModListEntryMixin {
 
     @Shadow
     @Final
@@ -38,6 +42,14 @@ public abstract class MixinModListEntryRemap {
     @Shadow
     @Final
     protected ModListWidget list;
+
+    @Inject(
+            method = "openConfig",
+            at = @At("HEAD")
+    )
+    private void onOpenConfig(CallbackInfo ci) {
+        ModListMemory.onModOpened(mod.getId());
+    }
 
     @Inject(
             method = "mouseClicked",

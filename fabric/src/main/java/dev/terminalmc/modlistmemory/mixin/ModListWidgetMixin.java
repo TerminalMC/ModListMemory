@@ -34,7 +34,7 @@ import static dev.terminalmc.modlistmemory.config.Config.options;
         value = ModListWidget.class,
         remap = false
 )
-public abstract class MixinModListWidget {
+public abstract class ModListWidgetMixin {
 
     @WrapOperation(
             method = "filter(Ljava/lang/String;ZZ)V",

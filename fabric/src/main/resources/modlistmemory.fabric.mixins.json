@@ -2,7 +2,6 @@
   "required": true,
   "minVersion": "${mixin_version_min}",
   "package": "dev.terminalmc.modlistmemory.mixin",
-  "refmap": "${mod_id}.refmap.json",
   "compatibilityLevel": "JAVA_${java_version}",
   "plugin": "dev.terminalmc.modlistmemory.util.MixinConfigPlugin",
   "mixinextras": {
@@ -11,12 +10,12 @@
   "mixins": [
   ],
   "client": [
-    "MixinModBadgeRenderer",
-    "MixinModListEntry",
-    "MixinModListEntryRemap",
-    "MixinModListWidget",
-    "MixinModListWidgetRemap",
-    "MixinModsScreen"
+    "ModBadgeRendererMixin",
+    "ModListEntryMixin",
+    "ModListEntryRemapMixin",
+    "ModListWidgetMixin",
+    "ModListWidgetRemapMixin",
+    "ModsScreenMixin"
   ],
   "server": [
   ],

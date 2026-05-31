@@ -28,7 +28,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import static dev.terminalmc.modlistmemory.config.Config.options;
 
 @Mixin(ModsScreen.class)
-public abstract class MixinModsScreen {
+public abstract class ModsScreenMixin {
 
     @Shadow
     private ModListWidget modList;

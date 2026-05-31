@@ -30,7 +30,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import static dev.terminalmc.modlistmemory.config.Config.options;
 
 @Mixin(ModBadgeRenderer.class)
-public abstract class MixinModBadgeRenderer {
+public abstract class ModBadgeRendererMixin {
 
     @Shadow
     protected Mod mod;

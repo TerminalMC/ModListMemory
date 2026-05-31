@@ -25,7 +25,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import static dev.terminalmc.modlistmemory.config.Config.options;
 
 @Mixin(ModListWidget.class)
-public abstract class MixinModListWidgetRemap {
+public abstract class ModListWidgetRemapMixin {
 
     @Inject(
             method = "setScrollAmount",
