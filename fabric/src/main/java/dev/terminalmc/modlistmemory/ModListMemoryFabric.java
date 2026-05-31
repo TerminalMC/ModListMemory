@@ -16,7 +16,9 @@
 
 package dev.terminalmc.modlistmemory;
 
+import dev.terminalmc.modlistmemory.command.Commands;
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
 import net.fabricmc.fabric.api.event.Event;
 
@@ -25,13 +27,16 @@ public class ModListMemoryFabric implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        // Main initialization
-        ModListMemory.init();
+        // Register client commands
+        ClientCommandRegistrationCallback.EVENT.register(Commands::register);
 
-        // Shutdown event
+        // Register shutdown hook
         ClientLifecycleEvents.CLIENT_STOPPING.register(
                 Event.DEFAULT_PHASE,
                 ModListMemory::onClientShutdown
         );
+
+        // Initialize client
+        ModListMemory.init();
     }
 }

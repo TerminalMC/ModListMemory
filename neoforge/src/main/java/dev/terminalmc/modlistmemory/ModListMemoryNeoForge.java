@@ -16,6 +16,7 @@
 
 package dev.terminalmc.modlistmemory;
 
+import dev.terminalmc.modlistmemory.command.Commands;
 import dev.terminalmc.modlistmemory.gui.screen.ConfigScreenProvider;
 import net.minecraft.client.Minecraft;
 import net.neoforged.api.distmarker.Dist;
@@ -23,6 +24,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.client.event.RegisterClientCommandsEvent;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.neoforged.neoforge.event.GameShuttingDownEvent;
 
@@ -33,13 +35,13 @@ import net.neoforged.neoforge.event.GameShuttingDownEvent;
 public class ModListMemoryNeoForge {
 
     public ModListMemoryNeoForge() {
-        // Config screen
+        // Register config screen
         ModLoadingContext.get().registerExtensionPoint(
                 IConfigScreenFactory.class,
                 () -> (mc, parent) -> ConfigScreenProvider.getConfigScreen(parent)
         );
 
-        // Main initialization
+        // Initialize client
         ModListMemory.init();
     }
 
@@ -49,10 +51,20 @@ public class ModListMemoryNeoForge {
     )
     static class ClientEventHandler {
 
-        // Shutdown event
+        /**
+         * Registers shutdown event.
+         */
         @SubscribeEvent
         public static void shutdownEvent(GameShuttingDownEvent event) {
             ModListMemory.onClientShutdown(Minecraft.getInstance());
+        }
+
+        /**
+         * Registers client commands.
+         */
+        @SubscribeEvent
+        public static void onRegisterClientCommands(RegisterClientCommandsEvent event) {
+            Commands.register(event.getDispatcher(), event.getBuildContext());
         }
     }
 }
