@@ -48,6 +48,6 @@ ___
 
 ## Unreleased
 
-## 1.102.0 [2026-09-12]
+## 1.103.0 [2026-09-12]
 
-- Reset versioning scheme.
+- Updated to mc26.2.
