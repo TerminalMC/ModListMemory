@@ -1,6 +1,7 @@
 // Configure Gradle plugin repos
 pluginManagement {
     repositories {
+        mavenLocal()
         mavenCentral()
         gradlePluginPortal()
 

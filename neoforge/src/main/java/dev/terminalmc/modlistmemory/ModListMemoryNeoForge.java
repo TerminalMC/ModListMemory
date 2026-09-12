@@ -52,19 +52,19 @@ public class ModListMemoryNeoForge {
     static class ClientEventHandler {
 
         /**
+         * Registers all client-side commands.
+         */
+        @SubscribeEvent
+        static void registerClientCommands(RegisterClientCommandsEvent event) {
+            Commands.register(event.getDispatcher(), event.getBuildContext());
+        }
+
+        /**
          * Registers shutdown event.
          */
         @SubscribeEvent
         public static void shutdownEvent(GameShuttingDownEvent event) {
             ModListMemory.onClientShutdown(Minecraft.getInstance());
-        }
-
-        /**
-         * Registers client commands.
-         */
-        @SubscribeEvent
-        public static void onRegisterClientCommands(RegisterClientCommandsEvent event) {
-            Commands.register(event.getDispatcher(), event.getBuildContext());
         }
     }
 }

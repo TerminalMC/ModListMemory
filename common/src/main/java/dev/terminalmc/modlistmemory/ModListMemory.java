@@ -17,11 +17,12 @@
 package dev.terminalmc.modlistmemory;
 
 import dev.terminalmc.modlistmemory.config.Config;
-import dev.terminalmc.modlistmemory.util.ModLogger;
+import dev.terminalmc.modlistmemory.util.Logging;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.FormattedCharSequence;
+import org.apache.logging.log4j.Logger;
 
 import static dev.terminalmc.modlistmemory.config.Config.options;
 
@@ -29,7 +30,7 @@ public class ModListMemory {
 
     public static final String MOD_ID = "modlistmemory";
     public static final String MOD_NAME = "ModListMemory";
-    public static final ModLogger LOG = new ModLogger(MOD_NAME);
+    public static final Logger LOG = Logging.getLogger(MOD_ID);
     public static final int BADGE_TEXT = 0xFFCACACA;
     public static final int PINNED_BADGE_OUTLINE = 0xFFb36b19;
     public static final int PINNED_BADGE_FILL = 0xFF4d2e0b;
@@ -41,6 +42,13 @@ public class ModListMemory {
     public static FormattedCharSequence recentBadgeText =
             Component.literal("R").getVisualOrderText();
 
+    private ModListMemory() {
+        throw new UnsupportedOperationException("This class cannot be instantiated.");
+    }
+
+    /**
+     * Client initialization.
+     */
     public static void init() {
         Config.getAndSave();
 
@@ -50,12 +58,18 @@ public class ModListMemory {
         }
     }
 
+    /**
+     * Client shutdown listener.
+     */
     public static void onClientShutdown(Minecraft mc) {
         if (options().persistOnRestart) {
             Config.save();
         }
     }
 
+    /**
+     * Config save listener.
+     */
     public static void onConfigSaved(Config config) {
         pinnedBadgeText = Component.literal(config.options.pinnedText).getVisualOrderText();
         recentBadgeText = Component.literal(config.options.recentText).getVisualOrderText();

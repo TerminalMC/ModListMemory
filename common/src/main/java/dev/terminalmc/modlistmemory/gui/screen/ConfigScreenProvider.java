@@ -32,12 +32,20 @@ import static dev.terminalmc.modlistmemory.util.Localization.localized;
  */
 public class ConfigScreenProvider {
 
+    private ConfigScreenProvider() {
+        throw new UnsupportedOperationException("This class cannot be instantiated.");
+    }
+
     public static Screen getConfigScreen(Screen parent) {
         try {
             return ClothScreenProvider.getConfigScreen(parent);
 //            return new DisabledScreen(parent);
         } catch (NoClassDefFoundError ignored) {
-            return new BackupScreen(parent, "installCloth", "https://modrinth.com/project/9s6osm5g");
+            return new BackupScreen(
+                    parent,
+                    "installCloth",
+                    "https://modrinth.com/project/9s6osm5g"
+            );
         }
     }
 
